@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5. Smali Components &mdash; pysmali 0.1.3 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="1. Smali VM" href="bridge.html" />
+    <link rel="prev" title="4. Smali Visitor API" href="visitor.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            pysmali
+          </a>
+              <div class="version">
+                0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#how-to-install-the-package">How to install the package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="language.html">Smali Language</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="language.html#class-header">Class Header</a></li>
+<li class="toctree-l2"><a class="reference internal" href="language.html#class-annotations">Class Annotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="language.html#fields">Fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="language.html#methods">Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="language.html#annotations">Annotations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../development.html">Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../development.html#supported-dependencies">Supported dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../development.html#roadmap">Roadmap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../development.html#id3">1.0.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing.html#set-up-a-local-environment">Set up a local environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing.html#create-a-new-feature-request">Create a new feature request</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#release-0-1-3">0.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#release-0-1-2">0.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#release-0-1-1">0.1.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#release-1-0-0">0.0.1</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Smali API Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">1. Smali API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#overview">1.1. Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#type-descriptors">1.1.1. Type descriptors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#method-descriptors">1.1.2. Method descriptors</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#interfaces-and-components">1.2. Interfaces and components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#parsing-classes">1.2.1. Parsing classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#generating-classes">1.2.2. Generating classes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reader.html">2. Smali Reader API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reader.html#parsing-model">2.1. Parsing model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="reader.html#smali.reader.SupportsCopy"><code class="docutils literal notranslate"><span class="pre">SupportsCopy</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="reader.html#smali.reader.SupportsCopy.copy"><code class="docutils literal notranslate"><span class="pre">SupportsCopy.copy()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="reader.html#smali.reader.SmaliReader"><code class="docutils literal notranslate"><span class="pre">SmaliReader</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="reader.html#smali.reader.SmaliReader._class_def"><code class="docutils literal notranslate"><span class="pre">SmaliReader._class_def()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="reader.html#smali.reader.SmaliReader._collect_values"><code class="docutils literal notranslate"><span class="pre">SmaliReader._collect_values()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="reader.html#smali.reader.SmaliReader._do_visit"><code class="docutils literal notranslate"><span class="pre">SmaliReader._do_visit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="reader.html#smali.reader.SmaliReader._handle_end"><code class="docutils literal notranslate"><span class="pre">SmaliReader._handle_end()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="reader.html#smali.reader.SmaliReader._handle_source"><code class="docutils literal notranslate"><span class="pre">SmaliReader._handle_source()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="reader.html#smali.reader.SmaliReader._next_line"><code class="docutils literal notranslate"><span class="pre">SmaliReader._next_line()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="reader.html#smali.reader.SmaliReader._read_access_flags"><code class="docutils literal notranslate"><span class="pre">SmaliReader._read_access_flags()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="reader.html#smali.reader.SmaliReader._validate_descriptor"><code class="docutils literal notranslate"><span class="pre">SmaliReader._validate_descriptor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="reader.html#smali.reader.SmaliReader._validate_token"><code class="docutils literal notranslate"><span class="pre">SmaliReader._validate_token()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="reader.html#smali.reader.SmaliReader._visitor"><code class="docutils literal notranslate"><span class="pre">SmaliReader._visitor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="reader.html#smali.reader.SmaliReader.comments"><code class="docutils literal notranslate"><span class="pre">SmaliReader.comments</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="reader.html#smali.reader.SmaliReader.errors"><code class="docutils literal notranslate"><span class="pre">SmaliReader.errors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="reader.html#smali.reader.SmaliReader.line"><code class="docutils literal notranslate"><span class="pre">SmaliReader.line</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="reader.html#smali.reader.SmaliReader.snippet"><code class="docutils literal notranslate"><span class="pre">SmaliReader.snippet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="reader.html#smali.reader.SmaliReader.source"><code class="docutils literal notranslate"><span class="pre">SmaliReader.source</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="reader.html#smali.reader.SmaliReader.stack"><code class="docutils literal notranslate"><span class="pre">SmaliReader.stack</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="reader.html#smali.reader.SmaliReader.validate"><code class="docutils literal notranslate"><span class="pre">SmaliReader.validate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="reader.html#smali.reader.SmaliReader.visit"><code class="docutils literal notranslate"><span class="pre">SmaliReader.visit()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="writer.html">3. Smali Writer API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="writer.html#code-cache">3.1. Code cache</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="writer.html#smali.writer._ContainsCodeCache"><code class="docutils literal notranslate"><span class="pre">_ContainsCodeCache</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="writer.html#smali.writer._ContainsCodeCache.get_cache"><code class="docutils literal notranslate"><span class="pre">_ContainsCodeCache.get_cache()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="writer.html#smali.writer._CodeCache"><code class="docutils literal notranslate"><span class="pre">_CodeCache</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="writer.html#smali.writer._CodeCache.add"><code class="docutils literal notranslate"><span class="pre">_CodeCache.add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="writer.html#smali.writer._CodeCache.add_comment"><code class="docutils literal notranslate"><span class="pre">_CodeCache.add_comment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="writer.html#smali.writer._CodeCache.add_to_cache"><code class="docutils literal notranslate"><span class="pre">_CodeCache.add_to_cache()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="writer.html#smali.writer._CodeCache.apply_code_cache"><code class="docutils literal notranslate"><span class="pre">_CodeCache.apply_code_cache()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="writer.html#smali.writer._CodeCache.clear"><code class="docutils literal notranslate"><span class="pre">_CodeCache.clear()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="writer.html#smali.writer._CodeCache.get_code"><code class="docutils literal notranslate"><span class="pre">_CodeCache.get_code()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="writer.html#smali.writer._CodeCache.indent"><code class="docutils literal notranslate"><span class="pre">_CodeCache.indent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="writer.html#smali.writer._CodeCache.peek"><code class="docutils literal notranslate"><span class="pre">_CodeCache.peek()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="writer.html#smali.writer._CodeCache.pop_comments"><code class="docutils literal notranslate"><span class="pre">_CodeCache.pop_comments()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="writer.html#writer-implementation">3.2. Writer implementation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="writer.html#smali.writer.SmaliWriter"><code class="docutils literal notranslate"><span class="pre">SmaliWriter</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="writer.html#smali.writer._SmaliClassWriter"><code class="docutils literal notranslate"><span class="pre">_SmaliClassWriter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="writer.html#smali.writer._SmaliClassWriter.code"><code class="docutils literal notranslate"><span class="pre">_SmaliClassWriter.code</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="writer.html#smali.writer._SmaliClassWriter.reset"><code class="docutils literal notranslate"><span class="pre">_SmaliClassWriter.reset()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="visitor.html">4. Smali Visitor API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="visitor.html#smali.visitor.VisitorBase"><code class="docutils literal notranslate"><span class="pre">VisitorBase</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.VisitorBase.visit_comment"><code class="docutils literal notranslate"><span class="pre">VisitorBase.visit_comment()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.VisitorBase.visit_end"><code class="docutils literal notranslate"><span class="pre">VisitorBase.visit_end()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.VisitorBase.visit_eol_comment"><code class="docutils literal notranslate"><span class="pre">VisitorBase.visit_eol_comment()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="visitor.html#smali.visitor.ClassVisitor"><code class="docutils literal notranslate"><span class="pre">ClassVisitor</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.ClassVisitor.visit_annotation"><code class="docutils literal notranslate"><span class="pre">ClassVisitor.visit_annotation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.ClassVisitor.visit_class"><code class="docutils literal notranslate"><span class="pre">ClassVisitor.visit_class()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.ClassVisitor.visit_debug"><code class="docutils literal notranslate"><span class="pre">ClassVisitor.visit_debug()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.ClassVisitor.visit_field"><code class="docutils literal notranslate"><span class="pre">ClassVisitor.visit_field()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.ClassVisitor.visit_implements"><code class="docutils literal notranslate"><span class="pre">ClassVisitor.visit_implements()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.ClassVisitor.visit_inner_class"><code class="docutils literal notranslate"><span class="pre">ClassVisitor.visit_inner_class()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.ClassVisitor.visit_method"><code class="docutils literal notranslate"><span class="pre">ClassVisitor.visit_method()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.ClassVisitor.visit_source"><code class="docutils literal notranslate"><span class="pre">ClassVisitor.visit_source()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.ClassVisitor.visit_super"><code class="docutils literal notranslate"><span class="pre">ClassVisitor.visit_super()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="visitor.html#smali.visitor.AnnotationVisitor"><code class="docutils literal notranslate"><span class="pre">AnnotationVisitor</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.AnnotationVisitor.visit_array"><code class="docutils literal notranslate"><span class="pre">AnnotationVisitor.visit_array()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.AnnotationVisitor.visit_enum"><code class="docutils literal notranslate"><span class="pre">AnnotationVisitor.visit_enum()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.AnnotationVisitor.visit_subannotation"><code class="docutils literal notranslate"><span class="pre">AnnotationVisitor.visit_subannotation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.AnnotationVisitor.visit_value"><code class="docutils literal notranslate"><span class="pre">AnnotationVisitor.visit_value()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="visitor.html#smali.visitor.FieldVisitor"><code class="docutils literal notranslate"><span class="pre">FieldVisitor</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.FieldVisitor.visit_annotation"><code class="docutils literal notranslate"><span class="pre">FieldVisitor.visit_annotation()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="visitor.html#smali.visitor.MethodVisitor"><code class="docutils literal notranslate"><span class="pre">MethodVisitor</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.MethodVisitor.visit_annotation"><code class="docutils literal notranslate"><span class="pre">MethodVisitor.visit_annotation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.MethodVisitor.visit_array_data"><code class="docutils literal notranslate"><span class="pre">MethodVisitor.visit_array_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.MethodVisitor.visit_block"><code class="docutils literal notranslate"><span class="pre">MethodVisitor.visit_block()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.MethodVisitor.visit_catch"><code class="docutils literal notranslate"><span class="pre">MethodVisitor.visit_catch()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.MethodVisitor.visit_catchall"><code class="docutils literal notranslate"><span class="pre">MethodVisitor.visit_catchall()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.MethodVisitor.visit_goto"><code class="docutils literal notranslate"><span class="pre">MethodVisitor.visit_goto()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.MethodVisitor.visit_instruction"><code class="docutils literal notranslate"><span class="pre">MethodVisitor.visit_instruction()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.MethodVisitor.visit_invoke"><code class="docutils literal notranslate"><span class="pre">MethodVisitor.visit_invoke()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.MethodVisitor.visit_line"><code class="docutils literal notranslate"><span class="pre">MethodVisitor.visit_line()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.MethodVisitor.visit_local"><code class="docutils literal notranslate"><span class="pre">MethodVisitor.visit_local()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.MethodVisitor.visit_locals"><code class="docutils literal notranslate"><span class="pre">MethodVisitor.visit_locals()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.MethodVisitor.visit_packed_switch"><code class="docutils literal notranslate"><span class="pre">MethodVisitor.visit_packed_switch()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.MethodVisitor.visit_param"><code class="docutils literal notranslate"><span class="pre">MethodVisitor.visit_param()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.MethodVisitor.visit_prologue"><code class="docutils literal notranslate"><span class="pre">MethodVisitor.visit_prologue()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.MethodVisitor.visit_registers"><code class="docutils literal notranslate"><span class="pre">MethodVisitor.visit_registers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.MethodVisitor.visit_restart"><code class="docutils literal notranslate"><span class="pre">MethodVisitor.visit_restart()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.MethodVisitor.visit_return"><code class="docutils literal notranslate"><span class="pre">MethodVisitor.visit_return()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="visitor.html#smali.visitor.MethodVisitor.visit_sparse_switch"><code class="docutils literal notranslate"><span class="pre">MethodVisitor.visit_sparse_switch()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">5. Smali Components</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#smali-token">5.1. Smali token</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#smali.base.Token"><code class="docutils literal notranslate"><span class="pre">Token</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#smali-access-modifiers">5.2. Smali access modifiers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#smali.base.AccessType"><code class="docutils literal notranslate"><span class="pre">AccessType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.AccessType.find"><code class="docutils literal notranslate"><span class="pre">AccessType.find()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.AccessType.get_flags"><code class="docutils literal notranslate"><span class="pre">AccessType.get_flags()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.AccessType.get_names"><code class="docutils literal notranslate"><span class="pre">AccessType.get_names()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#smali-type-descriptors">5.3. Smali type descriptors</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#smali.base.Type"><code class="docutils literal notranslate"><span class="pre">Type</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.Type.CLINIT"><code class="docutils literal notranslate"><span class="pre">Type.CLINIT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.Type.INIT"><code class="docutils literal notranslate"><span class="pre">Type.INIT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.Type.class_name"><code class="docutils literal notranslate"><span class="pre">Type.class_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.Type.descriptor"><code class="docutils literal notranslate"><span class="pre">Type.descriptor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.Type.dim"><code class="docutils literal notranslate"><span class="pre">Type.dim</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.Type.get_method_name"><code class="docutils literal notranslate"><span class="pre">Type.get_method_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.Type.get_method_params"><code class="docutils literal notranslate"><span class="pre">Type.get_method_params()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.Type.get_method_return_type"><code class="docutils literal notranslate"><span class="pre">Type.get_method_return_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.Type.type_name"><code class="docutils literal notranslate"><span class="pre">Type.type_name</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#smali-type">5.4. Smali type</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#smali.base.SmaliValueProxy"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.SmaliValueProxy.RE_BOOL_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_BOOL_VALUE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.SmaliValueProxy.RE_BYTE_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_BYTE_VALUE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.SmaliValueProxy.RE_CHAR_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_CHAR_VALUE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.SmaliValueProxy.RE_DOUBLE_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_DOUBLE_VALUE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.SmaliValueProxy.RE_FLOAT_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_FLOAT_VALUE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.SmaliValueProxy.RE_HEX_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_HEX_VALUE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.SmaliValueProxy.RE_INT_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_INT_VALUE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.SmaliValueProxy.RE_LONG_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_LONG_VALUE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.SmaliValueProxy.RE_SHORT_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_SHORT_VALUE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.SmaliValueProxy.RE_STRING_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_STRING_VALUE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.SmaliValueProxy.RE_TYPE_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_TYPE_VALUE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.SmaliValueProxy.actual_value"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.actual_value</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.SmaliValueProxy.is_type_descriptor"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.is_type_descriptor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.SmaliValueProxy.value"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#smali.SmaliValue"><code class="docutils literal notranslate"><span class="pre">SmaliValue()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#utility-components">5.5. Utility components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#smali.base.Line"><code class="docutils literal notranslate"><span class="pre">Line</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.Line.RE_EOL_COMMENT"><code class="docutils literal notranslate"><span class="pre">Line.RE_EOL_COMMENT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.Line.cleaned"><code class="docutils literal notranslate"><span class="pre">Line.cleaned</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.Line.eol_comment"><code class="docutils literal notranslate"><span class="pre">Line.eol_comment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.Line.has_eol"><code class="docutils literal notranslate"><span class="pre">Line.has_eol()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.Line.has_next"><code class="docutils literal notranslate"><span class="pre">Line.has_next()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.Line.last"><code class="docutils literal notranslate"><span class="pre">Line.last()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.Line.peek"><code class="docutils literal notranslate"><span class="pre">Line.peek()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.Line.raw"><code class="docutils literal notranslate"><span class="pre">Line.raw</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.Line.reset"><code class="docutils literal notranslate"><span class="pre">Line.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.Line.split_line"><code class="docutils literal notranslate"><span class="pre">Line.split_line()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Smali Bridge</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="bridge.html">1. Smali VM</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bridge.html#smali.bridge.vm.SmaliVM"><code class="docutils literal notranslate"><span class="pre">SmaliVM</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bridge.html#smali.bridge.vm.SmaliVM.__classes"><code class="docutils literal notranslate"><span class="pre">SmaliVM.__classes</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bridge.html#smali.bridge.vm.SmaliVM.__frames"><code class="docutils literal notranslate"><span class="pre">SmaliVM.__frames</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bridge.html#smali.bridge.vm.SmaliVM.call"><code class="docutils literal notranslate"><span class="pre">SmaliVM.call()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bridge.html#smali.bridge.vm.SmaliVM.classloader"><code class="docutils literal notranslate"><span class="pre">SmaliVM.classloader</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bridge.html#smali.bridge.vm.SmaliVM.debug_handler"><code class="docutils literal notranslate"><span class="pre">SmaliVM.debug_handler</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bridge.html#smali.bridge.vm.SmaliVM.executors"><code class="docutils literal notranslate"><span class="pre">SmaliVM.executors</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bridge.html#smali.bridge.vm.SmaliVM.get_class"><code class="docutils literal notranslate"><span class="pre">SmaliVM.get_class()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bridge.html#smali.bridge.vm.SmaliVM.new_class"><code class="docutils literal notranslate"><span class="pre">SmaliVM.new_class()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bridge.html#smali.bridge.vm.SmaliVM.new_frame"><code class="docutils literal notranslate"><span class="pre">SmaliVM.new_frame()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bridge.html#smali.bridge.vm.SmaliVM.use_strict"><code class="docutils literal notranslate"><span class="pre">SmaliVM.use_strict</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bridge.html#smali.bridge.vm.ClassLoader"><code class="docutils literal notranslate"><span class="pre">ClassLoader</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bridge.html#smali.bridge.vm.ClassLoader.define_class"><code class="docutils literal notranslate"><span class="pre">ClassLoader.define_class()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bridge.html#smali.bridge.vm.ClassLoader.load_class"><code class="docutils literal notranslate"><span class="pre">ClassLoader.load_class()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bridge_api.html">2. Smali Bridge API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bridge_api.html#module-smali.bridge.frame">2.1. Execution Frame</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bridge_api.html#smali.bridge.frame.Frame"><code class="docutils literal notranslate"><span class="pre">Frame</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.frame.Frame.array_data"><code class="docutils literal notranslate"><span class="pre">Frame.array_data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.frame.Frame.catch"><code class="docutils literal notranslate"><span class="pre">Frame.catch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.frame.Frame.error"><code class="docutils literal notranslate"><span class="pre">Frame.error</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.frame.Frame.finished"><code class="docutils literal notranslate"><span class="pre">Frame.finished</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.frame.Frame.label"><code class="docutils literal notranslate"><span class="pre">Frame.label</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.frame.Frame.labels"><code class="docutils literal notranslate"><span class="pre">Frame.labels</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.frame.Frame.method_return"><code class="docutils literal notranslate"><span class="pre">Frame.method_return</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.frame.Frame.opcodes"><code class="docutils literal notranslate"><span class="pre">Frame.opcodes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.frame.Frame.parent"><code class="docutils literal notranslate"><span class="pre">Frame.parent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.frame.Frame.pos"><code class="docutils literal notranslate"><span class="pre">Frame.pos</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.frame.Frame.registers"><code class="docutils literal notranslate"><span class="pre">Frame.registers</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.frame.Frame.reset"><code class="docutils literal notranslate"><span class="pre">Frame.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.frame.Frame.return_value"><code class="docutils literal notranslate"><span class="pre">Frame.return_value</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.frame.Frame.switch_data"><code class="docutils literal notranslate"><span class="pre">Frame.switch_data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.frame.Frame.vm"><code class="docutils literal notranslate"><span class="pre">Frame.vm</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bridge_api.html#module-smali.bridge.lang">2.2. Language members</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliMember"><code class="docutils literal notranslate"><span class="pre">SmaliMember</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliMember.annotations"><code class="docutils literal notranslate"><span class="pre">SmaliMember.annotations</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliMember.get_annotations"><code class="docutils literal notranslate"><span class="pre">SmaliMember.get_annotations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliMember.is_annotation_present"><code class="docutils literal notranslate"><span class="pre">SmaliMember.is_annotation_present()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliMember.modifiers"><code class="docutils literal notranslate"><span class="pre">SmaliMember.modifiers</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliMember.parent"><code class="docutils literal notranslate"><span class="pre">SmaliMember.parent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliMember.signature"><code class="docutils literal notranslate"><span class="pre">SmaliMember.signature</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliAnnotation"><code class="docutils literal notranslate"><span class="pre">SmaliAnnotation</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliAnnotation.attr"><code class="docutils literal notranslate"><span class="pre">SmaliAnnotation.attr</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliField"><code class="docutils literal notranslate"><span class="pre">SmaliField</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliField.name"><code class="docutils literal notranslate"><span class="pre">SmaliField.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliField.smali_type"><code class="docutils literal notranslate"><span class="pre">SmaliField.smali_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliField.value"><code class="docutils literal notranslate"><span class="pre">SmaliField.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliMethod"><code class="docutils literal notranslate"><span class="pre">SmaliMethod</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliMethod.locals"><code class="docutils literal notranslate"><span class="pre">SmaliMethod.locals</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliMethod.name"><code class="docutils literal notranslate"><span class="pre">SmaliMethod.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliMethod.parameters"><code class="docutils literal notranslate"><span class="pre">SmaliMethod.parameters</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliMethod.return_type"><code class="docutils literal notranslate"><span class="pre">SmaliMethod.return_type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="bridge_api.html#smali.bridge.lang._MethodBroker"><code class="docutils literal notranslate"><span class="pre">_MethodBroker</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliClass"><code class="docutils literal notranslate"><span class="pre">SmaliClass</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliClass.clinit"><code class="docutils literal notranslate"><span class="pre">SmaliClass.clinit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliClass.field"><code class="docutils literal notranslate"><span class="pre">SmaliClass.field()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliClass.fields"><code class="docutils literal notranslate"><span class="pre">SmaliClass.fields()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliClass.inner_class"><code class="docutils literal notranslate"><span class="pre">SmaliClass.inner_class()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliClass.inner_classes"><code class="docutils literal notranslate"><span class="pre">SmaliClass.inner_classes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliClass.interfaces"><code class="docutils literal notranslate"><span class="pre">SmaliClass.interfaces</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliClass.method"><code class="docutils literal notranslate"><span class="pre">SmaliClass.method()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliClass.name"><code class="docutils literal notranslate"><span class="pre">SmaliClass.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliClass.simple_name"><code class="docutils literal notranslate"><span class="pre">SmaliClass.simple_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliClass.super_cls"><code class="docutils literal notranslate"><span class="pre">SmaliClass.super_cls</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliObject"><code class="docutils literal notranslate"><span class="pre">SmaliObject</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliObject.__class"><code class="docutils literal notranslate"><span class="pre">SmaliObject.__class</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliObject.__field_values"><code class="docutils literal notranslate"><span class="pre">SmaliObject.__field_values</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliObject.init"><code class="docutils literal notranslate"><span class="pre">SmaliObject.init()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliObject.smali_class"><code class="docutils literal notranslate"><span class="pre">SmaliObject.smali_class</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bridge_api.html#common-error-classes">2.3. Common error classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bridge_api.html#smali.bridge.errors.NoSuchClassError"><code class="docutils literal notranslate"><span class="pre">NoSuchClassError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bridge_api.html#smali.bridge.errors.NoSuchMethodError"><code class="docutils literal notranslate"><span class="pre">NoSuchMethodError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bridge_api.html#smali.bridge.errors.NoSuchFieldError"><code class="docutils literal notranslate"><span class="pre">NoSuchFieldError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bridge_api.html#smali.bridge.errors.NoSuchOpcodeError"><code class="docutils literal notranslate"><span class="pre">NoSuchOpcodeError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bridge_api.html#smali.bridge.errors.InvalidOpcodeError"><code class="docutils literal notranslate"><span class="pre">InvalidOpcodeError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bridge_api.html#smali.bridge.errors.NoSuchRegisterError"><code class="docutils literal notranslate"><span class="pre">NoSuchRegisterError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bridge_api.html#smali.bridge.errors.ExecutionError"><code class="docutils literal notranslate"><span class="pre">ExecutionError</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.errors.ExecutionError.name"><code class="docutils literal notranslate"><span class="pre">ExecutionError.name</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="shell.html">3. Smali Shell (ISmali)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="shell.html#define-smali-fields">3.1. Define Smali-Fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shell.html#execute-smali-methods">3.2. Execute Smali-Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shell.html#module-smali.shell">3.3. Shell Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="shell.html#smali.shell.ISmaliShell"><code class="docutils literal notranslate"><span class="pre">ISmaliShell</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="shell.html#smali.shell.ISmaliShell.DEFAULT_PROMPT"><code class="docutils literal notranslate"><span class="pre">ISmaliShell.DEFAULT_PROMPT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="shell.html#smali.shell.ISmaliShell.INLINE_PROMPT"><code class="docutils literal notranslate"><span class="pre">ISmaliShell.INLINE_PROMPT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="shell.html#smali.shell.ISmaliShell.change_prompt"><code class="docutils literal notranslate"><span class="pre">ISmaliShell.change_prompt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="shell.html#smali.shell.ISmaliShell.check_import"><code class="docutils literal notranslate"><span class="pre">ISmaliShell.check_import</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="shell.html#smali.shell.ISmaliShell.default"><code class="docutils literal notranslate"><span class="pre">ISmaliShell.default()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="shell.html#smali.shell.ISmaliShell.do_copyright"><code class="docutils literal notranslate"><span class="pre">ISmaliShell.do_copyright()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="shell.html#smali.shell.ISmaliShell.do_del"><code class="docutils literal notranslate"><span class="pre">ISmaliShell.do_del()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="shell.html#smali.shell.ISmaliShell.do_exit"><code class="docutils literal notranslate"><span class="pre">ISmaliShell.do_exit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="shell.html#smali.shell.ISmaliShell.do_fields"><code class="docutils literal notranslate"><span class="pre">ISmaliShell.do_fields()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="shell.html#smali.shell.ISmaliShell.do_import"><code class="docutils literal notranslate"><span class="pre">ISmaliShell.do_import()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="shell.html#smali.shell.ISmaliShell.do_label"><code class="docutils literal notranslate"><span class="pre">ISmaliShell.do_label()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="shell.html#smali.shell.ISmaliShell.do_vars"><code class="docutils literal notranslate"><span class="pre">ISmaliShell.do_vars()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="shell.html#smali.shell.ISmaliShell.emulator"><code class="docutils literal notranslate"><span class="pre">ISmaliShell.emulator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="shell.html#smali.shell.ISmaliShell.precmd"><code class="docutils literal notranslate"><span class="pre">ISmaliShell.precmd()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="shell.html#smali.shell.ISmaliShell.prompt"><code class="docutils literal notranslate"><span class="pre">ISmaliShell.prompt</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="shell.html#smali.shell.ISmaliShell.reader"><code class="docutils literal notranslate"><span class="pre">ISmaliShell.reader</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="shell.html#smali.shell.ISmaliShell.root"><code class="docutils literal notranslate"><span class="pre">ISmaliShell.root</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="shell.html#smali.shell.ISmaliShell.visitor"><code class="docutils literal notranslate"><span class="pre">ISmaliShell.visitor</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pysmali</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5. </span>Smali Components</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/api/smali/base.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-smali.base">
+<span id="smali-components"></span><span id="smali-base-api"></span><h1><span class="section-number">5. </span>Smali Components<a class="headerlink" href="#module-smali.base" title="Permalink to this heading">¶</a></h1>
+<p>Basic component classes when working with the Smali language.</p>
+<section id="smali-token">
+<span id="token-class"></span><h2><span class="section-number">5.1. </span>Smali token<a class="headerlink" href="#smali-token" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smali.base.Token">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smali.base.</span></span><span class="sig-name descname"><span class="pre">Token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#smali.base.Token" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines all common token in a Smali file.</p>
+<p>There are some special methods implemented to use constants of this
+class in the following situations:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;annotation&quot;</span> <span class="o">==</span> <span class="n">Token</span><span class="o">.</span><span class="n">ANNOTATION</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;local&quot;</span> <span class="o">!=</span> <span class="n">Token</span><span class="o">.</span><span class="n">LOCALS</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">Token</span><span class="o">.</span><span class="n">ENUM</span><span class="p">)</span>
+<span class="go">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">str</span><span class="p">(</span><span class="n">Token</span><span class="o">.</span><span class="n">ARRAYDATA</span><span class="p">)</span>
+<span class="go">&#39;array-data&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="smali-access-modifiers">
+<h2><span class="section-number">5.2. </span>Smali access modifiers<a class="headerlink" href="#smali-access-modifiers" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smali.base.AccessType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smali.base.</span></span><span class="sig-name descname"><span class="pre">AccessType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#smali.base.AccessType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Contains all access modifiers for classes, fields, methods and annotations.</p>
+<p>There is also a possibility to use values of this class with an <code class="docutils literal notranslate"><span class="pre">in</span></code>
+statement:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">flags</span> <span class="o">=</span> <span class="n">AccessType</span><span class="o">.</span><span class="n">PUBLIC</span> <span class="o">+</span> <span class="n">AccessType</span><span class="o">.</span><span class="n">FINAL</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">flags</span> <span class="ow">in</span> <span class="n">AccessType</span><span class="o">.</span><span class="n">PUBLIC</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">flags</span> <span class="ow">in</span> <span class="n">AccessType</span><span class="o">.</span><span class="n">PRIVATE</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="smali.base.AccessType.find">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">find</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#smali.base.AccessType.find" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether the given keyword is a valid modifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>str</em>) – the value to check</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True, if the given value represents an access modifier</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smali.base.AccessType.get_flags">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_flags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#smali.base.AccessType.get_flags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts the given readable access modifiers into an integer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>values</strong> (<em>list</em>) – the keyword list</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>an integer storing all modifiers</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smali.base.AccessType.get_names">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#smali.base.AccessType.get_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts the given access modifiers to a human readable representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>flags</strong> (<em>int</em>) – the access modifiers</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a list of keywords</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="smali-type-descriptors">
+<h2><span class="section-number">5.3. </span>Smali type descriptors<a class="headerlink" href="#smali-type-descriptors" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smali.base.Type">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smali.base.</span></span><span class="sig-name descname"><span class="pre">Type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signature</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#smali.base.Type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Basic type definition that can handle both class and method types.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smali.base.Type.CLINIT">
+<span class="sig-name descname"><span class="pre">CLINIT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'&lt;clinit&gt;'</span></em><a class="headerlink" href="#smali.base.Type.CLINIT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Static block initializer</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smali.base.Type.INIT">
+<span class="sig-name descname"><span class="pre">INIT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'&lt;init&gt;'</span></em><a class="headerlink" href="#smali.base.Type.INIT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor method</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="smali.base.Type.class_name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">class_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#smali.base.Type.class_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the Smali class name equivalent to Smali class names.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the class name (e.g. “com.example.ABC”)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="smali.base.Type.descriptor">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">descriptor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#smali.base.Type.descriptor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the type descriptor of this type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the type descriptor used in the DVM (e.g. “Lcom/example/ABC;”)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="smali.base.Type.dim">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dim</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#smali.base.Type.dim" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the amount of array dimensions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the amount of array dimensions.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smali.base.Type.get_method_name">
+<span class="sig-name descname"><span class="pre">get_method_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#smali.base.Type.get_method_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the method name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the absolute method name</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smali.base.Type.get_method_params">
+<span class="sig-name descname"><span class="pre">get_method_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#smali.base.Type.get_method_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the method parameter internal names.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the method parameters</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smali.base.Type.get_method_return_type">
+<span class="sig-name descname"><span class="pre">get_method_return_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#smali.base.Type.get_method_return_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the method’s return type</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>TypeError</strong> – if there is no valid return type</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the return type’s descriptor</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="smali.base.Type.type_name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">type_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#smali.base.Type.type_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the type name without ‘L’ and ‘;’</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the type name</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="smali-type">
+<h2><span class="section-number">5.4. </span>Smali type<a class="headerlink" href="#smali-type" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smali.base.SmaliValueProxy">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smali.base.</span></span><span class="sig-name descname"><span class="pre">SmaliValueProxy</span></span><a class="headerlink" href="#smali.base.SmaliValueProxy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper class for primitives in Smali.</p>
+<p>Use this class to retrieve the actual primitiva value for a parsed
+source code snippet. As this class overrides most of the internal
+special functions, objects of this class can be used as regualar
+strings or numeric values:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">value</span> <span class="o">=</span> <span class="n">SmaliValue</span><span class="p">(</span><span class="s2">&quot;1234&quot;</span><span class="p">)</span>
+<span class="go">1234</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">value</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="go">1235</span>
+</pre></div>
+</div>
+<p>The same behaviour applies to parsed strings (note that you need
+quotation marks):</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">string</span> <span class="o">=</span> <span class="n">SmaliValue</span><span class="p">(</span><span class="s1">&#39;&quot;Hello World&quot;&#39;</span><span class="p">)</span>
+<span class="go">&#39;Hello World&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+<span class="go">11</span>
+</pre></div>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smali.base.SmaliValueProxy.RE_BOOL_VALUE">
+<span class="sig-name descname"><span class="pre">RE_BOOL_VALUE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('true|false')</span></em><a class="headerlink" href="#smali.base.SmaliValueProxy.RE_BOOL_VALUE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pattern for <code class="docutils literal notranslate"><span class="pre">boolean</span></code> values.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smali.base.SmaliValueProxy.RE_BYTE_VALUE">
+<span class="sig-name descname"><span class="pre">RE_BYTE_VALUE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('[\\-\\+]?(0x)?[\\dabcdefABCDEF]+t$')</span></em><a class="headerlink" href="#smali.base.SmaliValueProxy.RE_BYTE_VALUE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pattern for <code class="docutils literal notranslate"><span class="pre">byte</span></code> values.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smali.base.SmaliValueProxy.RE_CHAR_VALUE">
+<span class="sig-name descname"><span class="pre">RE_CHAR_VALUE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile(&quot;^'.*'$&quot;)</span></em><a class="headerlink" href="#smali.base.SmaliValueProxy.RE_CHAR_VALUE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pattern for <code class="docutils literal notranslate"><span class="pre">char</span></code> values.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smali.base.SmaliValueProxy.RE_DOUBLE_VALUE">
+<span class="sig-name descname"><span class="pre">RE_DOUBLE_VALUE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('[\\-\\+]?\\d+\\.\\d+')</span></em><a class="headerlink" href="#smali.base.SmaliValueProxy.RE_DOUBLE_VALUE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pattern for <code class="docutils literal notranslate"><span class="pre">double</span></code> values.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smali.base.SmaliValueProxy.RE_FLOAT_VALUE">
+<span class="sig-name descname"><span class="pre">RE_FLOAT_VALUE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('[\\-\\+]?\\d+\\.\\d+f$')</span></em><a class="headerlink" href="#smali.base.SmaliValueProxy.RE_FLOAT_VALUE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pattern for <code class="docutils literal notranslate"><span class="pre">float</span></code> values.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smali.base.SmaliValueProxy.RE_HEX_VALUE">
+<span class="sig-name descname"><span class="pre">RE_HEX_VALUE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('0x[\\dabcdefABCDEF]+')</span></em><a class="headerlink" href="#smali.base.SmaliValueProxy.RE_HEX_VALUE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pattern for integer values.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smali.base.SmaliValueProxy.RE_INT_VALUE">
+<span class="sig-name descname"><span class="pre">RE_INT_VALUE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('[\\-\\+]?(0x)?[\\dabcdefABCDEF]+$')</span></em><a class="headerlink" href="#smali.base.SmaliValueProxy.RE_INT_VALUE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pattern for <code class="docutils literal notranslate"><span class="pre">int</span></code> values.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smali.base.SmaliValueProxy.RE_LONG_VALUE">
+<span class="sig-name descname"><span class="pre">RE_LONG_VALUE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('[\\-\\+]?(0x)?[\\dabcdefABCDEF]+l$')</span></em><a class="headerlink" href="#smali.base.SmaliValueProxy.RE_LONG_VALUE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pattern for <code class="docutils literal notranslate"><span class="pre">long</span></code> values.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smali.base.SmaliValueProxy.RE_SHORT_VALUE">
+<span class="sig-name descname"><span class="pre">RE_SHORT_VALUE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('[\\-\\+]?(0x)?[\\dabcdefABCDEF]+s$')</span></em><a class="headerlink" href="#smali.base.SmaliValueProxy.RE_SHORT_VALUE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pattern for <code class="docutils literal notranslate"><span class="pre">short</span></code> values.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smali.base.SmaliValueProxy.RE_STRING_VALUE">
+<span class="sig-name descname"><span class="pre">RE_STRING_VALUE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('^&quot;.*&quot;$')</span></em><a class="headerlink" href="#smali.base.SmaliValueProxy.RE_STRING_VALUE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pattern for <code class="docutils literal notranslate"><span class="pre">String</span></code> values.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smali.base.SmaliValueProxy.RE_TYPE_VALUE">
+<span class="sig-name descname"><span class="pre">RE_TYPE_VALUE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('\\[*((L\\S*;$)|([ZCBSIFVJD])$)')</span></em><a class="headerlink" href="#smali.base.SmaliValueProxy.RE_TYPE_VALUE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pattern for type descriptors.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smali.base.SmaliValueProxy.actual_value">
+<span class="sig-name descname"><span class="pre">actual_value</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#smali.base.SmaliValueProxy.actual_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>The actual value of any type</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smali.base.SmaliValueProxy.is_type_descriptor">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_type_descriptor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#smali.base.SmaliValueProxy.is_type_descriptor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether the given value is a valid type descriptor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>str</em>) – the value to check</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True, if the value is a valid type descriptor</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smali.base.SmaliValueProxy.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#smali.base.SmaliValueProxy.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>The initial source code value (string)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="smali.SmaliValue">
+<span class="sig-prename descclassname"><span class="pre">smali.</span></span><span class="sig-name descname"><span class="pre">SmaliValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#smali.base.SmaliValueProxy" title="smali.base.SmaliValueProxy"><span class="pre">SmaliValueProxy</span></a></span></span><a class="headerlink" href="#smali.SmaliValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses the given string and returns its Smali value representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>str</em>) – the value as a string</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – if it has no valid Smali type</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the Smali value representation</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#smali.base.SmaliValueProxy" title="smali.base.SmaliValueProxy">SmaliValueProxy</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="utility-components">
+<h2><span class="section-number">5.5. </span>Utility components<a class="headerlink" href="#utility-components" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smali.base.Line">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smali.base.</span></span><span class="sig-name descname"><span class="pre">Line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#smali.base.Line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple peekable Iterator implementation.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smali.base.Line.RE_EOL_COMMENT">
+<span class="sig-name descname"><span class="pre">RE_EOL_COMMENT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('\\s*#.*')</span></em><a class="headerlink" href="#smali.base.Line.RE_EOL_COMMENT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pattern for EOL (end of line) comments</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smali.base.Line.cleaned">
+<span class="sig-name descname"><span class="pre">cleaned</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#smali.base.Line.cleaned" title="Permalink to this definition">¶</a></dt>
+<dd><p>The cleaned line without any leading and trailing whitespace</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smali.base.Line.eol_comment">
+<span class="sig-name descname"><span class="pre">eol_comment</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#smali.base.Line.eol_comment" title="Permalink to this definition">¶</a></dt>
+<dd><p>The removed trailing EOL comment (if present)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smali.base.Line.has_eol">
+<span class="sig-name descname"><span class="pre">has_eol</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#smali.base.Line.has_eol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether this line contains an EOL comment</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True, if the line contains an EOL comment</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smali.base.Line.has_next">
+<span class="sig-name descname"><span class="pre">has_next</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#smali.base.Line.has_next" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether there as a following element.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if next() can be called safely</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smali.base.Line.last">
+<span class="sig-name descname"><span class="pre">last</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#smali.base.Line.last" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the last element of this line without modifying the iterator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the last element</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smali.base.Line.peek">
+<span class="sig-name descname"><span class="pre">peek</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;object</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#smali.base.Line.peek" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the current element if this line.</p>
+<p>This method won’t move forwards.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>default</strong> (<em>str</em><em>, </em><em>optional</em>) – the default value to return, defaults to _default</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>StopIteration</strong> – if the end of this line has been reached</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the current value</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smali.base.Line.raw">
+<span class="sig-name descname"><span class="pre">raw</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#smali.base.Line.raw" title="Permalink to this definition">¶</a></dt>
+<dd><p>The raw line as it was passed through the constructor.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smali.base.Line.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#smali.base.Line.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets this line and/or initialized it with the new value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>line</strong> (<em>str</em><em>, </em><em>optional</em>) – the next line, defaults to None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smali.base.Line.split_line">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">split_line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cleaned</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'</span> <span class="pre">'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#smali.base.Line.split_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Splits the line by the given delimiter and ignores values in strings</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cleaned</strong> (<em>str</em>) – the input string</p></li>
+<li><p><strong>sep</strong> (<em>str</em><em>, </em><em>optional</em>) – the delimiter, defaults to ‘ ‘</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the splitted values</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="visitor.html" class="btn btn-neutral float-left" title="4. Smali Visitor API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="bridge.html" class="btn btn-neutral float-right" title="1. Smali VM" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, MatrixEditor.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
