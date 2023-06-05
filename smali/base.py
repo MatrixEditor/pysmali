@@ -431,8 +431,8 @@ class Type:
 
         params = self.__signature[start + 1 : end]
 
-        d = ";"
-        param_list = [param + d for param in params.split(d) if param]
+        delimiter = ";"
+        param_list = [param + delimiter for param in params.split(delimiter) if param]
 
         return param_list
 
