@@ -425,35 +425,15 @@ class Type:
         :rtype: list
         """
         start = self.__signature.find("(")
-        end = self.__signature.find(")") + 1
-        if start == -1 or end == -1:
+        end = self.__signature.find(")")
+        if start == -1 or end == -1 or (end < start):
             raise TypeError("Invalid method signature")
 
         params = self.__signature[start + 1 : end]
-        if not params:
-            return []
 
-        param_list = []
-        current_param = ""
-        is_type_def = False
-        for char in params:
-            current_param = f"{current_param}{char}"
+        d = ";"
+        param_list = [param + d for param in params.split(d) if param]
 
-            if char == "L":
-                is_type_def = True
-                continue
-
-            if char == "[" or is_type_def:
-                continue
-
-            if char == ";":
-                is_type_def = False
-
-            param_list.append(current_param)
-            current_param = ""
-
-        if current_param:
-            param_list.append(current_param)
         return param_list
 
     def get_method_return_type(self) -> str:
