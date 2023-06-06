@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>1. Smali API &mdash; pysmali 0.1.3 documentation</title>
+  <title>1. Smali API &mdash; pysmali 0.2.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -71,6 +71,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#release-0-2-0">0.2.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#release-0-1-3">0.1.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#release-0-1-2">0.1.2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#release-0-1-1">0.1.1</a></li>
@@ -223,39 +224,34 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="base.html#smali-type-descriptors">5.3. Smali type descriptors</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="base.html#smali.base.Type"><code class="docutils literal notranslate"><span class="pre">Type</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.Type.CLINIT"><code class="docutils literal notranslate"><span class="pre">Type.CLINIT</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.Type.INIT"><code class="docutils literal notranslate"><span class="pre">Type.INIT</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.Type.class_name"><code class="docutils literal notranslate"><span class="pre">Type.class_name</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.Type.descriptor"><code class="docutils literal notranslate"><span class="pre">Type.descriptor</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.Type.dim"><code class="docutils literal notranslate"><span class="pre">Type.dim</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.Type.get_method_name"><code class="docutils literal notranslate"><span class="pre">Type.get_method_name()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.Type.get_method_params"><code class="docutils literal notranslate"><span class="pre">Type.get_method_params()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.Type.get_method_return_type"><code class="docutils literal notranslate"><span class="pre">Type.get_method_return_type()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.Type.type_name"><code class="docutils literal notranslate"><span class="pre">Type.type_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="base.html#smali.base.SVMType"><code class="docutils literal notranslate"><span class="pre">SVMType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.SVMType.TYPES"><code class="docutils literal notranslate"><span class="pre">SVMType.TYPES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.SVMType.array_type"><code class="docutils literal notranslate"><span class="pre">SVMType.array_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.SVMType.dim"><code class="docutils literal notranslate"><span class="pre">SVMType.dim</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.SVMType.dvm_name"><code class="docutils literal notranslate"><span class="pre">SVMType.dvm_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.SVMType.full_name"><code class="docutils literal notranslate"><span class="pre">SVMType.full_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.SVMType.is_signature"><code class="docutils literal notranslate"><span class="pre">SVMType.is_signature()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.SVMType.pretty_name"><code class="docutils literal notranslate"><span class="pre">SVMType.pretty_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.SVMType.signature"><code class="docutils literal notranslate"><span class="pre">SVMType.signature</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.SVMType.simple_name"><code class="docutils literal notranslate"><span class="pre">SVMType.simple_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.SVMType.svm_type"><code class="docutils literal notranslate"><span class="pre">SVMType.svm_type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="base.html#smali.base.Signature"><code class="docutils literal notranslate"><span class="pre">Signature</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.Signature.CLINIT"><code class="docutils literal notranslate"><span class="pre">Signature.CLINIT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.Signature.INIT"><code class="docutils literal notranslate"><span class="pre">Signature.INIT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.Signature.declaring_class"><code class="docutils literal notranslate"><span class="pre">Signature.declaring_class</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.Signature.descriptor"><code class="docutils literal notranslate"><span class="pre">Signature.descriptor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.Signature.name"><code class="docutils literal notranslate"><span class="pre">Signature.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.Signature.parameter_types"><code class="docutils literal notranslate"><span class="pre">Signature.parameter_types</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.Signature.return_type"><code class="docutils literal notranslate"><span class="pre">Signature.return_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.Signature.sig"><code class="docutils literal notranslate"><span class="pre">Signature.sig</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="base.html#smali-type">5.4. Smali type</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="base.html#smali.base.SmaliValueProxy"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.SmaliValueProxy.RE_BOOL_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_BOOL_VALUE</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.SmaliValueProxy.RE_BYTE_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_BYTE_VALUE</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.SmaliValueProxy.RE_CHAR_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_CHAR_VALUE</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.SmaliValueProxy.RE_DOUBLE_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_DOUBLE_VALUE</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.SmaliValueProxy.RE_FLOAT_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_FLOAT_VALUE</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.SmaliValueProxy.RE_HEX_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_HEX_VALUE</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.SmaliValueProxy.RE_INT_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_INT_VALUE</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.SmaliValueProxy.RE_LONG_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_LONG_VALUE</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.SmaliValueProxy.RE_SHORT_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_SHORT_VALUE</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.SmaliValueProxy.RE_STRING_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_STRING_VALUE</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.SmaliValueProxy.RE_TYPE_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_TYPE_VALUE</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.SmaliValueProxy.actual_value"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.actual_value</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.SmaliValueProxy.is_type_descriptor"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.is_type_descriptor()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="base.html#smali.base.SmaliValueProxy.value"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.value</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="base.html#smali.SmaliValue"><code class="docutils literal notranslate"><span class="pre">SmaliValue()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="base.html#smali.smali_value"><code class="docutils literal notranslate"><span class="pre">smali_value()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="base.html#utility-components">5.5. Utility components</a><ul>
@@ -330,6 +326,7 @@
 <li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliMember.modifiers"><code class="docutils literal notranslate"><span class="pre">SmaliMember.modifiers</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliMember.parent"><code class="docutils literal notranslate"><span class="pre">SmaliMember.parent</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliMember.signature"><code class="docutils literal notranslate"><span class="pre">SmaliMember.signature</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliMember.type"><code class="docutils literal notranslate"><span class="pre">SmaliMember.type</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliAnnotation"><code class="docutils literal notranslate"><span class="pre">SmaliAnnotation</span></code></a><ul>
@@ -338,7 +335,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliField"><code class="docutils literal notranslate"><span class="pre">SmaliField</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliField.name"><code class="docutils literal notranslate"><span class="pre">SmaliField.name</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliField.smali_type"><code class="docutils literal notranslate"><span class="pre">SmaliField.smali_type</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliField.value"><code class="docutils literal notranslate"><span class="pre">SmaliField.value</span></code></a></li>
 </ul>
 </li>
@@ -354,6 +350,7 @@
 <li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliClass.clinit"><code class="docutils literal notranslate"><span class="pre">SmaliClass.clinit()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliClass.field"><code class="docutils literal notranslate"><span class="pre">SmaliClass.field()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliClass.fields"><code class="docutils literal notranslate"><span class="pre">SmaliClass.fields()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliClass.get_declared_methods"><code class="docutils literal notranslate"><span class="pre">SmaliClass.get_declared_methods()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliClass.inner_class"><code class="docutils literal notranslate"><span class="pre">SmaliClass.inner_class()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliClass.inner_classes"><code class="docutils literal notranslate"><span class="pre">SmaliClass.inner_classes</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliClass.interfaces"><code class="docutils literal notranslate"><span class="pre">SmaliClass.interfaces</span></code></a></li>
@@ -549,17 +546,33 @@ type descriptors always start with a <code class="docutils literal notranslate">
 that, array type descriptors will start with opened square brackets according to the
 number of dimensions. For instance, a two dimensional array would get two opened square
 brackets in its type descriptor.</p>
-<p>This API contains a class called <code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code> that can be used to retrieve type descriptors
+<p>This API contains a class called <code class="xref py py-class docutils literal notranslate"><span class="pre">SVMType</span></code> that can be used to retrieve type descriptors
 as well as class names:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">from</span> <span class="nn">smali</span> <span class="kn">import</span> <span class="n">Type</span>
-<span class="linenos">2</span>
-<span class="linenos">3</span><span class="n">car_type</span> <span class="o">=</span> <span class="n">Type</span><span class="p">(</span><span class="s2">&quot;com.example.car&quot;</span><span class="p">)</span>
-<span class="linenos">4</span><span class="c1"># Type descriptor =&gt; Lcom/example/car;</span>
-<span class="linenos">5</span><span class="n">descriptor</span> <span class="o">=</span> <span class="n">car_type</span><span class="o">.</span><span class="n">descriptor</span>
-<span class="linenos">6</span><span class="c1"># Original class name =&gt; com.example.car</span>
-<span class="linenos">7</span><span class="n">name</span> <span class="o">=</span> <span class="n">car_type</span><span class="o">.</span><span class="n">class_name</span>
-<span class="linenos">8</span><span class="c1"># Internal name =&gt; com/example/car</span>
-<span class="linenos">9</span><span class="n">internal</span> <span class="o">=</span> <span class="n">car_type</span><span class="o">.</span><span class="n">type_name</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">smali</span> <span class="kn">import</span> <span class="n">SVMType</span><span class="p">,</span> <span class="n">Signature</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="c1"># simple type instance</span>
+<span class="linenos"> 4</span><span class="n">t</span> <span class="o">=</span> <span class="n">SVMType</span><span class="p">(</span><span class="s2">&quot;Lcom/example/Class;&quot;</span><span class="p">)</span>
+<span class="linenos"> 5</span><span class="n">t</span><span class="o">.</span><span class="n">simple_name</span> <span class="c1"># Class</span>
+<span class="linenos"> 6</span><span class="n">t</span><span class="o">.</span><span class="n">pretty_name</span> <span class="c1"># com.example.Class</span>
+<span class="linenos"> 7</span><span class="n">t</span><span class="o">.</span><span class="n">dvm_name</span> <span class="c1"># com/example/Class</span>
+<span class="linenos"> 8</span><span class="n">t</span><span class="o">.</span><span class="n">full_name</span> <span class="c1"># Lcom/example/Class;</span>
+<span class="linenos"> 9</span><span class="n">t</span><span class="o">.</span><span class="n">svm_type</span> <span class="c1"># SVMType.TYPES.CLASS</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="c1"># create new type instance for method signature</span>
+<span class="linenos">12</span><span class="n">m</span> <span class="o">=</span> <span class="n">SVMType</span><span class="p">(</span><span class="s2">&quot;getName([BLjava/lang/String;)Ljava/lang/String;&quot;</span><span class="p">)</span>
+<span class="linenos">13</span><span class="n">m</span><span class="o">.</span><span class="n">svm_type</span> <span class="c1"># SVMType.TYPES.METHOD</span>
+<span class="linenos">14</span><span class="c1"># retrieve signature instance</span>
+<span class="linenos">15</span><span class="n">s</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">signature</span> <span class="ow">or</span> <span class="n">Signature</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<span class="linenos">16</span><span class="n">s</span><span class="o">.</span><span class="n">return_type</span> <span class="c1"># SVMType(&quot;Ljava/lang/String;&quot;)</span>
+<span class="linenos">17</span><span class="n">s</span><span class="o">.</span><span class="n">parameter_types</span> <span class="c1"># [SVMType(&quot;[B&quot;), SVMType(&quot;Ljava/lang/String;&quot;)]</span>
+<span class="linenos">18</span><span class="n">s</span><span class="o">.</span><span class="n">name</span> <span class="c1"># getName</span>
+<span class="linenos">19</span><span class="n">s</span><span class="o">.</span><span class="n">declaring_class</span> <span class="c1"># would return the class before &#39;-&gt;&#39; (only if defined)</span>
+<span class="linenos">20</span>
+<span class="linenos">21</span><span class="c1"># array types</span>
+<span class="linenos">22</span><span class="n">array</span> <span class="o">=</span> <span class="n">SVMType</span><span class="p">(</span><span class="s2">&quot;[B&quot;</span><span class="p">)</span>
+<span class="linenos">23</span><span class="n">array</span><span class="o">.</span><span class="n">svm_type</span> <span class="c1"># SVMType.TYPES.ARRAY</span>
+<span class="linenos">24</span><span class="n">array</span><span class="o">.</span><span class="n">array_type</span> <span class="c1"># SVMType(&quot;B&quot;)</span>
+<span class="linenos">25</span><span class="n">array</span><span class="o">.</span><span class="n">dim</span> <span class="c1"># 1 (one dimension)</span>
 </pre></div>
 </div>
 <p>As an input can be used anything that represents the class as type descriptor, original
@@ -569,17 +582,20 @@ class name or internal name (array types are supported as well).</p>
 <h3><a class="toc-backref" href="#id11" role="doc-backlink"><span class="section-number">1.1.2. </span>Method descriptors</a><a class="headerlink" href="#method-descriptors" title="Permalink to this heading">¶</a></h3>
 <p>Unlike method descriptors in compiled Java classes, Smali’s method descriptors contain the
 method’s name. The general structure, described in detail in the ASM API <a class="footnote-reference brackets" href="#id6" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> documentation,
-is the same. To get contents of a method descriptor the <code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code> class, introduced before,
+is the same. To get contents of a method descriptor the <code class="xref py py-class docutils literal notranslate"><span class="pre">SVMType</span></code> class, introduced before,
 can be used again:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">from</span> <span class="nn">smali</span> <span class="kn">import</span> <span class="n">Type</span>
-<span class="linenos">2</span>
-<span class="linenos">3</span><span class="n">method</span> <span class="o">=</span> <span class="n">Type</span><span class="p">(</span><span class="s2">&quot;getName([BLjava/lang/String;)Ljava/lang/String;&quot;</span><span class="p">)</span>
-<span class="linenos">4</span><span class="c1"># get the method&#39;s name</span>
-<span class="linenos">5</span><span class="n">name</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="n">get_method_name</span><span class="p">()</span>
-<span class="linenos">6</span><span class="c1"># get parameter type descriptors</span>
-<span class="linenos">7</span><span class="n">params</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="n">get_method_params</span><span class="p">()</span>
-<span class="linenos">8</span><span class="c1"># get return type descriptor</span>
-<span class="linenos">9</span><span class="n">return_type</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="n">get_method_return_type</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">smali</span> <span class="kn">import</span> <span class="n">SVMType</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">method</span> <span class="o">=</span> <span class="n">SVMType</span><span class="p">(</span><span class="s2">&quot;getName([BLjava/lang/String;)Ljava/lang/String;&quot;</span><span class="p">)</span>
+<span class="linenos"> 4</span><span class="c1"># get the method&#39;s signature</span>
+<span class="linenos"> 5</span><span class="n">signature</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="n">signature</span>
+<span class="linenos"> 6</span><span class="c1"># get parameter type descriptors</span>
+<span class="linenos"> 7</span><span class="n">params</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">SVMType</span><span class="p">]</span> <span class="o">=</span> <span class="n">signature</span><span class="o">.</span><span class="n">parameter_types</span>
+<span class="linenos"> 8</span><span class="c1"># get return type descriptor</span>
+<span class="linenos"> 9</span><span class="n">return_type</span> <span class="o">=</span> <span class="n">signature</span><span class="o">.</span><span class="n">return_type</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="c1"># the class type can be retrieved if defined</span>
+<span class="linenos">12</span><span class="bp">cls</span><span class="p">:</span> <span class="n">SVMType</span> <span class="o">=</span> <span class="n">signature</span><span class="o">.</span><span class="n">declaring_class</span>
 </pre></div>
 </div>
 <div class="admonition caution">
@@ -650,8 +666,8 @@ class name, super class and implementing interfaces:</p>
 <span class="linenos"> 3</span><span class="k">class</span> <span class="nc">SmaliClassPrinter</span><span class="p">(</span><span class="n">ClassVisitor</span><span class="p">):</span>
 <span class="linenos"> 4</span>    <span class="k">def</span> <span class="nf">visit_class</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">access_flags</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 5</span>        <span class="c1"># The provided name is the type descriptor - if we want the</span>
-<span class="linenos"> 6</span>        <span class="c1"># Java class name, use a Type() call:</span>
-<span class="linenos"> 7</span>        <span class="c1"># cls_name = Type(name).class_name</span>
+<span class="linenos"> 6</span>        <span class="c1"># Java class name, use a SVMType() call:</span>
+<span class="linenos"> 7</span>        <span class="c1"># cls_name = SVMType(name).simple_name</span>
 <span class="linenos"> 8</span>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;.class </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="linenos"> 9</span>
 <span class="linenos">10</span>    <span class="k">def</span> <span class="nf">visit_super</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">super_class</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>

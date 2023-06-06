@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5. Smali Components &mdash; pysmali 0.1.3 documentation</title>
+  <title>5. Smali Components &mdash; pysmali 0.2.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -71,6 +71,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#release-0-2-0">0.2.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#release-0-1-3">0.1.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#release-0-1-2">0.1.2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#release-0-1-1">0.1.1</a></li>
@@ -223,39 +224,34 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#smali-type-descriptors">5.3. Smali type descriptors</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#smali.base.Type"><code class="docutils literal notranslate"><span class="pre">Type</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#smali.base.Type.CLINIT"><code class="docutils literal notranslate"><span class="pre">Type.CLINIT</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#smali.base.Type.INIT"><code class="docutils literal notranslate"><span class="pre">Type.INIT</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#smali.base.Type.class_name"><code class="docutils literal notranslate"><span class="pre">Type.class_name</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#smali.base.Type.descriptor"><code class="docutils literal notranslate"><span class="pre">Type.descriptor</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#smali.base.Type.dim"><code class="docutils literal notranslate"><span class="pre">Type.dim</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#smali.base.Type.get_method_name"><code class="docutils literal notranslate"><span class="pre">Type.get_method_name()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#smali.base.Type.get_method_params"><code class="docutils literal notranslate"><span class="pre">Type.get_method_params()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#smali.base.Type.get_method_return_type"><code class="docutils literal notranslate"><span class="pre">Type.get_method_return_type()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#smali.base.Type.type_name"><code class="docutils literal notranslate"><span class="pre">Type.type_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#smali.base.SVMType"><code class="docutils literal notranslate"><span class="pre">SVMType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.SVMType.TYPES"><code class="docutils literal notranslate"><span class="pre">SVMType.TYPES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.SVMType.array_type"><code class="docutils literal notranslate"><span class="pre">SVMType.array_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.SVMType.dim"><code class="docutils literal notranslate"><span class="pre">SVMType.dim</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.SVMType.dvm_name"><code class="docutils literal notranslate"><span class="pre">SVMType.dvm_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.SVMType.full_name"><code class="docutils literal notranslate"><span class="pre">SVMType.full_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.SVMType.is_signature"><code class="docutils literal notranslate"><span class="pre">SVMType.is_signature()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.SVMType.pretty_name"><code class="docutils literal notranslate"><span class="pre">SVMType.pretty_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.SVMType.signature"><code class="docutils literal notranslate"><span class="pre">SVMType.signature</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.SVMType.simple_name"><code class="docutils literal notranslate"><span class="pre">SVMType.simple_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.SVMType.svm_type"><code class="docutils literal notranslate"><span class="pre">SVMType.svm_type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#smali.base.Signature"><code class="docutils literal notranslate"><span class="pre">Signature</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.Signature.CLINIT"><code class="docutils literal notranslate"><span class="pre">Signature.CLINIT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.Signature.INIT"><code class="docutils literal notranslate"><span class="pre">Signature.INIT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.Signature.declaring_class"><code class="docutils literal notranslate"><span class="pre">Signature.declaring_class</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.Signature.descriptor"><code class="docutils literal notranslate"><span class="pre">Signature.descriptor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.Signature.name"><code class="docutils literal notranslate"><span class="pre">Signature.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.Signature.parameter_types"><code class="docutils literal notranslate"><span class="pre">Signature.parameter_types</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.Signature.return_type"><code class="docutils literal notranslate"><span class="pre">Signature.return_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smali.base.Signature.sig"><code class="docutils literal notranslate"><span class="pre">Signature.sig</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#smali-type">5.4. Smali type</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#smali.base.SmaliValueProxy"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#smali.base.SmaliValueProxy.RE_BOOL_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_BOOL_VALUE</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#smali.base.SmaliValueProxy.RE_BYTE_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_BYTE_VALUE</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#smali.base.SmaliValueProxy.RE_CHAR_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_CHAR_VALUE</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#smali.base.SmaliValueProxy.RE_DOUBLE_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_DOUBLE_VALUE</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#smali.base.SmaliValueProxy.RE_FLOAT_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_FLOAT_VALUE</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#smali.base.SmaliValueProxy.RE_HEX_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_HEX_VALUE</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#smali.base.SmaliValueProxy.RE_INT_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_INT_VALUE</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#smali.base.SmaliValueProxy.RE_LONG_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_LONG_VALUE</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#smali.base.SmaliValueProxy.RE_SHORT_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_SHORT_VALUE</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#smali.base.SmaliValueProxy.RE_STRING_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_STRING_VALUE</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#smali.base.SmaliValueProxy.RE_TYPE_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_TYPE_VALUE</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#smali.base.SmaliValueProxy.actual_value"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.actual_value</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#smali.base.SmaliValueProxy.is_type_descriptor"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.is_type_descriptor()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#smali.base.SmaliValueProxy.value"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.value</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#smali.SmaliValue"><code class="docutils literal notranslate"><span class="pre">SmaliValue()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#smali.smali_value"><code class="docutils literal notranslate"><span class="pre">smali_value()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#utility-components">5.5. Utility components</a><ul>
@@ -330,6 +326,7 @@
 <li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliMember.modifiers"><code class="docutils literal notranslate"><span class="pre">SmaliMember.modifiers</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliMember.parent"><code class="docutils literal notranslate"><span class="pre">SmaliMember.parent</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliMember.signature"><code class="docutils literal notranslate"><span class="pre">SmaliMember.signature</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliMember.type"><code class="docutils literal notranslate"><span class="pre">SmaliMember.type</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliAnnotation"><code class="docutils literal notranslate"><span class="pre">SmaliAnnotation</span></code></a><ul>
@@ -338,7 +335,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliField"><code class="docutils literal notranslate"><span class="pre">SmaliField</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliField.name"><code class="docutils literal notranslate"><span class="pre">SmaliField.name</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliField.smali_type"><code class="docutils literal notranslate"><span class="pre">SmaliField.smali_type</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliField.value"><code class="docutils literal notranslate"><span class="pre">SmaliField.value</span></code></a></li>
 </ul>
 </li>
@@ -354,6 +350,7 @@
 <li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliClass.clinit"><code class="docutils literal notranslate"><span class="pre">SmaliClass.clinit()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliClass.field"><code class="docutils literal notranslate"><span class="pre">SmaliClass.field()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliClass.fields"><code class="docutils literal notranslate"><span class="pre">SmaliClass.fields()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliClass.get_declared_methods"><code class="docutils literal notranslate"><span class="pre">SmaliClass.get_declared_methods()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliClass.inner_class"><code class="docutils literal notranslate"><span class="pre">SmaliClass.inner_class()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliClass.inner_classes"><code class="docutils literal notranslate"><span class="pre">SmaliClass.inner_classes</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="bridge_api.html#smali.bridge.lang.SmaliClass.interfaces"><code class="docutils literal notranslate"><span class="pre">SmaliClass.interfaces</span></code></a></li>
@@ -538,52 +535,34 @@ statement:</p>
 <section id="smali-type-descriptors">
 <h2><span class="section-number">5.3. </span>Smali type descriptors<a class="headerlink" href="#smali-type-descriptors" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="smali.base.Type">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smali.base.</span></span><span class="sig-name descname"><span class="pre">Type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signature</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#smali.base.Type" title="Permalink to this definition">¶</a></dt>
-<dd><p>Basic type definition that can handle both class and method types.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="smali.base.Type.CLINIT">
-<span class="sig-name descname"><span class="pre">CLINIT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'&lt;clinit&gt;'</span></em><a class="headerlink" href="#smali.base.Type.CLINIT" title="Permalink to this definition">¶</a></dt>
-<dd><p>Static block initializer</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="smali.base.Type.INIT">
-<span class="sig-name descname"><span class="pre">INIT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'&lt;init&gt;'</span></em><a class="headerlink" href="#smali.base.Type.INIT" title="Permalink to this definition">¶</a></dt>
-<dd><p>Constructor method</p>
+<dt class="sig sig-object py" id="smali.base.SVMType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smali.base.</span></span><span class="sig-name descname"><span class="pre">SVMType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_SVMType__type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#smali.base.SVMType" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py class">
+<dt class="sig sig-object py" id="smali.base.SVMType.TYPES">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">TYPES</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#smali.base.SVMType.TYPES" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents the classification of a type descriptor.</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="smali.base.Type.class_name">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">class_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#smali.base.Type.class_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the Smali class name equivalent to Smali class names.</p>
+<dt class="sig sig-object py" id="smali.base.SVMType.array_type">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">array_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#smali.base.SVMType" title="smali.base.SVMType"><span class="pre">SVMType</span></a></em><a class="headerlink" href="#smali.base.SVMType.array_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the underlying array type (if any)</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">array</span> <span class="o">=</span> <span class="n">SVMType</span><span class="p">(</span><span class="s2">&quot;[[B&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>the class name (e.g. “com.example.ABC”)</p>
+<dd class="field-odd"><p>the underlying array type instance</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>str</p>
+<dd class="field-even"><p><a class="reference internal" href="#smali.base.SVMType" title="smali.base.SVMType">SVMType</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="smali.base.Type.descriptor">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">descriptor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#smali.base.Type.descriptor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the type descriptor of this type.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>the type descriptor used in the DVM (e.g. “Lcom/example/ABC;”)</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>str</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="smali.base.Type.dim">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dim</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#smali.base.Type.dim" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="smali.base.SVMType.dim">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dim</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#smali.base.SVMType.dim" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the amount of array dimensions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -595,10 +574,196 @@ statement:</p>
 </dl>
 </dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="smali.base.SVMType.dvm_name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dvm_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#smali.base.SVMType.dvm_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the DVM representation of this type descriptor.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="bp">cls</span> <span class="o">=</span> <span class="n">SVMType</span><span class="p">(</span><span class="s2">&quot;Lcom/example/Class;&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="bp">cls</span><span class="o">.</span><span class="n">dvm_name</span>
+<span class="go">&#39;com/example/Class&#39;</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the full name without <code class="docutils literal notranslate"><span class="pre">L</span></code> and <code class="docutils literal notranslate"><span class="pre">;</span></code>.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="smali.base.SVMType.full_name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">full_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#smali.base.SVMType.full_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the full name of this type descriptor (input value)</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="bp">cls</span> <span class="o">=</span> <span class="n">SVMType</span><span class="p">(</span><span class="s2">&quot;com.example.Class&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="bp">cls</span><span class="o">.</span><span class="n">full_name</span>
+<span class="go">&#39;Lcom/example/Class;&#39;</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the full name</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
-<dt class="sig sig-object py" id="smali.base.Type.get_method_name">
-<span class="sig-name descname"><span class="pre">get_method_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#smali.base.Type.get_method_name" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="smali.base.SVMType.is_signature">
+<span class="sig-name descname"><span class="pre">is_signature</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#smali.base.SVMType.is_signature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether this type instance is a method signature.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">SVMType</span><span class="p">(</span><span class="s2">&quot;&lt;init&gt;(II)V&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">is_signature</span><span class="p">()</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True, if this instance represents a method signature</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="smali.base.SVMType.pretty_name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pretty_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#smali.base.SVMType.pretty_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a prettified version of the class name.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">array</span> <span class="o">=</span> <span class="n">SVMType</span><span class="p">(</span><span class="s2">&quot;[[Lcom/example/Class;&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">array</span><span class="o">.</span><span class="n">pretty_name</span>
+<span class="go">&#39;[[com.example.Class&#39;</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>full name without <code class="docutils literal notranslate"><span class="pre">L</span></code> and <code class="docutils literal notranslate"><span class="pre">;</span></code>; <code class="docutils literal notranslate"><span class="pre">/</span></code> is replaced by a dot.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="smali.base.SVMType.signature">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">signature</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#smali.base.Signature" title="smali.base.Signature"><span class="pre">Signature</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#smali.base.SVMType.signature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a <a class="reference internal" href="#smali.base.Signature" title="smali.base.Signature"><code class="xref py py-class docutils literal notranslate"><span class="pre">Signature</span></code></a> object from this type instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the signature object or nothing if this type does not represent a
+method signature.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#smali.base.Signature" title="smali.base.Signature">Signature</a> | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="smali.base.SVMType.simple_name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">simple_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#smali.base.SVMType.simple_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns only the class name (not applicable to method signatures)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the class’ name</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="smali.base.SVMType.svm_type">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">svm_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#smali.base.SVMType.TYPES" title="smali.base.SVMType.TYPES"><span class="pre">TYPES</span></a></em><a class="headerlink" href="#smali.base.SVMType.svm_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the descriptor classification (ARRAY, PRIMITIVE, METHOD or CLASS)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the classification of this type instance</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#smali.base.SVMType.TYPES" title="smali.base.SVMType.TYPES">SVMType.TYPES</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smali.base.Signature">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smali.base.</span></span><span class="sig-name descname"><span class="pre">Signature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_Signature__signature</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#smali.base.SVMType" title="smali.base.SVMType"><span class="pre">SVMType</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#smali.base.Signature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Internal class to encapsulate method signatures.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smali.base.Signature.CLINIT">
+<span class="sig-name descname"><span class="pre">CLINIT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'&lt;clinit&gt;'</span></em><a class="headerlink" href="#smali.base.Signature.CLINIT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Static block initializer</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smali.base.Signature.INIT">
+<span class="sig-name descname"><span class="pre">INIT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'&lt;init&gt;'</span></em><a class="headerlink" href="#smali.base.Signature.INIT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor method</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="smali.base.Signature.declaring_class">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">declaring_class</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#smali.base.SVMType" title="smali.base.SVMType"><span class="pre">SVMType</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#smali.base.Signature.declaring_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the <a class="reference internal" href="#smali.base.SVMType" title="smali.base.SVMType"><code class="xref py py-class docutils literal notranslate"><span class="pre">SVMType</span></code></a> of the method’s declaring class.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span> <span class="o">=</span> <span class="n">Signature</span><span class="p">(</span><span class="s2">&quot;Lcom/example/Class;-&gt;&lt;init&gt;(II)V&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">str</span><span class="p">(</span><span class="n">s1</span><span class="o">.</span><span class="n">declaring_class</span><span class="p">)</span>
+<span class="go">&#39;Lcom/example/Class;&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s2</span> <span class="o">=</span> <span class="n">Signature</span><span class="p">(</span><span class="s2">&quot;&lt;init&gt;(II)V&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">str</span><span class="p">(</span><span class="n">s2</span><span class="o">.</span><span class="n">declaring_class</span><span class="p">)</span>
+<span class="go">&#39;None&#39;</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the method’s declaring class</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#smali.base.SVMType" title="smali.base.SVMType">SVMType</a> | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="smali.base.Signature.descriptor">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">descriptor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#smali.base.Signature.descriptor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the method descriptor of this signature</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">Signature</span><span class="p">(</span><span class="s2">&quot;&lt;init&gt;(II)V&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">descriptor</span>
+<span class="go">&#39;(II)V&#39;</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – if there is no descriptor</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the method’s descriptor string</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="smali.base.Signature.name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#smali.base.Signature.name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the method name</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">Signature</span><span class="p">(</span><span class="s2">&quot;Lcom/example/Class;-&gt;getLength(Ljava/lang/String;)I&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;getLength&#39;</span>
+</pre></div>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the absolute method name</p>
@@ -609,10 +774,16 @@ statement:</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="smali.base.Type.get_method_params">
-<span class="sig-name descname"><span class="pre">get_method_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#smali.base.Type.get_method_params" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the method parameter internal names.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="smali.base.Signature.parameter_types">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parameter_types</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#smali.base.SVMType" title="smali.base.SVMType"><span class="pre">smali.base.SVMType</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smali.base.Signature.parameter_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the method parameter types.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">Signature</span><span class="p">(</span><span class="s2">&quot;&lt;init&gt;(II)V&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">params</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">SVMType</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">parameter_types</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">params</span><span class="p">]</span>
+<span class="go">[&quot;I&quot;, &quot;I&quot;]</span>
+</pre></div>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the method parameters</p>
@@ -623,10 +794,15 @@ statement:</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="smali.base.Type.get_method_return_type">
-<span class="sig-name descname"><span class="pre">get_method_return_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#smali.base.Type.get_method_return_type" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="smali.base.Signature.return_type">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">return_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#smali.base.SVMType" title="smali.base.SVMType"><span class="pre">SVMType</span></a></em><a class="headerlink" href="#smali.base.Signature.return_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves the method’s return type</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">Signature</span><span class="p">(</span><span class="s2">&quot;&lt;init&gt;(II)V&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">return_type</span><span class="p">)</span> <span class="c1"># returns a SVMType instance</span>
+<span class="go">&#39;V&#39;</span>
+</pre></div>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>TypeError</strong> – if there is no valid return type</p>
@@ -641,12 +817,17 @@ statement:</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="smali.base.Type.type_name">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">type_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#smali.base.Type.type_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the type name without ‘L’ and ‘;’</p>
+<dt class="sig sig-object py" id="smali.base.Signature.sig">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sig</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#smali.base.Signature.sig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the fully qualified signature string.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">Signature</span><span class="p">(</span><span class="s2">&quot;&lt;init&gt;(II)V&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">sig</span>
+<span class="go">&#39;&lt;init&gt;(II)V&#39;</span>
+</pre></div>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>the type name</p>
+<dd class="field-odd"><p>the input string</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>str</p>
@@ -659,128 +840,9 @@ statement:</p>
 </section>
 <section id="smali-type">
 <h2><span class="section-number">5.4. </span>Smali type<a class="headerlink" href="#smali-type" title="Permalink to this heading">¶</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="smali.base.SmaliValueProxy">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smali.base.</span></span><span class="sig-name descname"><span class="pre">SmaliValueProxy</span></span><a class="headerlink" href="#smali.base.SmaliValueProxy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Wrapper class for primitives in Smali.</p>
-<p>Use this class to retrieve the actual primitiva value for a parsed
-source code snippet. As this class overrides most of the internal
-special functions, objects of this class can be used as regualar
-strings or numeric values:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">value</span> <span class="o">=</span> <span class="n">SmaliValue</span><span class="p">(</span><span class="s2">&quot;1234&quot;</span><span class="p">)</span>
-<span class="go">1234</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">value</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="go">1235</span>
-</pre></div>
-</div>
-<p>The same behaviour applies to parsed strings (note that you need
-quotation marks):</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">string</span> <span class="o">=</span> <span class="n">SmaliValue</span><span class="p">(</span><span class="s1">&#39;&quot;Hello World&quot;&#39;</span><span class="p">)</span>
-<span class="go">&#39;Hello World&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
-<span class="go">11</span>
-</pre></div>
-</div>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="smali.base.SmaliValueProxy.RE_BOOL_VALUE">
-<span class="sig-name descname"><span class="pre">RE_BOOL_VALUE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('true|false')</span></em><a class="headerlink" href="#smali.base.SmaliValueProxy.RE_BOOL_VALUE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Pattern for <code class="docutils literal notranslate"><span class="pre">boolean</span></code> values.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="smali.base.SmaliValueProxy.RE_BYTE_VALUE">
-<span class="sig-name descname"><span class="pre">RE_BYTE_VALUE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('[\\-\\+]?(0x)?[\\dabcdefABCDEF]+t$')</span></em><a class="headerlink" href="#smali.base.SmaliValueProxy.RE_BYTE_VALUE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Pattern for <code class="docutils literal notranslate"><span class="pre">byte</span></code> values.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="smali.base.SmaliValueProxy.RE_CHAR_VALUE">
-<span class="sig-name descname"><span class="pre">RE_CHAR_VALUE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile(&quot;^'.*'$&quot;)</span></em><a class="headerlink" href="#smali.base.SmaliValueProxy.RE_CHAR_VALUE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Pattern for <code class="docutils literal notranslate"><span class="pre">char</span></code> values.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="smali.base.SmaliValueProxy.RE_DOUBLE_VALUE">
-<span class="sig-name descname"><span class="pre">RE_DOUBLE_VALUE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('[\\-\\+]?\\d+\\.\\d+')</span></em><a class="headerlink" href="#smali.base.SmaliValueProxy.RE_DOUBLE_VALUE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Pattern for <code class="docutils literal notranslate"><span class="pre">double</span></code> values.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="smali.base.SmaliValueProxy.RE_FLOAT_VALUE">
-<span class="sig-name descname"><span class="pre">RE_FLOAT_VALUE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('[\\-\\+]?\\d+\\.\\d+f$')</span></em><a class="headerlink" href="#smali.base.SmaliValueProxy.RE_FLOAT_VALUE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Pattern for <code class="docutils literal notranslate"><span class="pre">float</span></code> values.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="smali.base.SmaliValueProxy.RE_HEX_VALUE">
-<span class="sig-name descname"><span class="pre">RE_HEX_VALUE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('0x[\\dabcdefABCDEF]+')</span></em><a class="headerlink" href="#smali.base.SmaliValueProxy.RE_HEX_VALUE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Pattern for integer values.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="smali.base.SmaliValueProxy.RE_INT_VALUE">
-<span class="sig-name descname"><span class="pre">RE_INT_VALUE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('[\\-\\+]?(0x)?[\\dabcdefABCDEF]+$')</span></em><a class="headerlink" href="#smali.base.SmaliValueProxy.RE_INT_VALUE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Pattern for <code class="docutils literal notranslate"><span class="pre">int</span></code> values.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="smali.base.SmaliValueProxy.RE_LONG_VALUE">
-<span class="sig-name descname"><span class="pre">RE_LONG_VALUE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('[\\-\\+]?(0x)?[\\dabcdefABCDEF]+l$')</span></em><a class="headerlink" href="#smali.base.SmaliValueProxy.RE_LONG_VALUE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Pattern for <code class="docutils literal notranslate"><span class="pre">long</span></code> values.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="smali.base.SmaliValueProxy.RE_SHORT_VALUE">
-<span class="sig-name descname"><span class="pre">RE_SHORT_VALUE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('[\\-\\+]?(0x)?[\\dabcdefABCDEF]+s$')</span></em><a class="headerlink" href="#smali.base.SmaliValueProxy.RE_SHORT_VALUE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Pattern for <code class="docutils literal notranslate"><span class="pre">short</span></code> values.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="smali.base.SmaliValueProxy.RE_STRING_VALUE">
-<span class="sig-name descname"><span class="pre">RE_STRING_VALUE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('^&quot;.*&quot;$')</span></em><a class="headerlink" href="#smali.base.SmaliValueProxy.RE_STRING_VALUE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Pattern for <code class="docutils literal notranslate"><span class="pre">String</span></code> values.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="smali.base.SmaliValueProxy.RE_TYPE_VALUE">
-<span class="sig-name descname"><span class="pre">RE_TYPE_VALUE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('\\[*((L\\S*;$)|([ZCBSIFVJD])$)')</span></em><a class="headerlink" href="#smali.base.SmaliValueProxy.RE_TYPE_VALUE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Pattern for type descriptors.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="smali.base.SmaliValueProxy.actual_value">
-<span class="sig-name descname"><span class="pre">actual_value</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#smali.base.SmaliValueProxy.actual_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>The actual value of any type</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="smali.base.SmaliValueProxy.is_type_descriptor">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_type_descriptor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#smali.base.SmaliValueProxy.is_type_descriptor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns whether the given value is a valid type descriptor.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>value</strong> (<em>str</em>) – the value to check</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>True, if the value is a valid type descriptor</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="smali.base.SmaliValueProxy.value">
-<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#smali.base.SmaliValueProxy.value" title="Permalink to this definition">¶</a></dt>
-<dd><p>The initial source code value (string)</p>
-</dd></dl>
-
-</dd></dl>
-
 <dl class="py function">
-<dt class="sig sig-object py" id="smali.SmaliValue">
-<span class="sig-prename descclassname"><span class="pre">smali.</span></span><span class="sig-name descname"><span class="pre">SmaliValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#smali.base.SmaliValueProxy" title="smali.base.SmaliValueProxy"><span class="pre">SmaliValueProxy</span></a></span></span><a class="headerlink" href="#smali.SmaliValue" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="smali.smali_value">
+<span class="sig-prename descclassname"><span class="pre">smali.</span></span><span class="sig-name descname"><span class="pre">smali_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#smali.base.SVMType" title="smali.base.SVMType"><span class="pre">SVMType</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></span></span><a class="headerlink" href="#smali.smali_value" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parses the given string and returns its Smali value representation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -793,7 +855,7 @@ quotation marks):</p>
 <dd class="field-odd"><p>the Smali value representation</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="#smali.base.SmaliValueProxy" title="smali.base.SmaliValueProxy">SmaliValueProxy</a></p>
+<dd class="field-even"><p>int | float | str | <a class="reference internal" href="#smali.base.SVMType" title="smali.base.SVMType">SVMType</a> | bool</p>
 </dd>
 </dl>
 </dd></dl>

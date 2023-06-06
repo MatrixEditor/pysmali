@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Index &mdash; pysmali 0.1.3 documentation</title>
+  <title>Index &mdash; pysmali 0.2.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -68,6 +68,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#release-0-2-0">0.2.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#release-0-1-3">0.1.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#release-0-1-2">0.1.2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#release-0-1-1">0.1.1</a></li>
@@ -220,39 +221,34 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/smali/base.html#smali-type-descriptors">5.3. Smali type descriptors</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/smali/base.html#smali.base.Type"><code class="docutils literal notranslate"><span class="pre">Type</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.Type.CLINIT"><code class="docutils literal notranslate"><span class="pre">Type.CLINIT</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.Type.INIT"><code class="docutils literal notranslate"><span class="pre">Type.INIT</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.Type.class_name"><code class="docutils literal notranslate"><span class="pre">Type.class_name</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.Type.descriptor"><code class="docutils literal notranslate"><span class="pre">Type.descriptor</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.Type.dim"><code class="docutils literal notranslate"><span class="pre">Type.dim</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.Type.get_method_name"><code class="docutils literal notranslate"><span class="pre">Type.get_method_name()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.Type.get_method_params"><code class="docutils literal notranslate"><span class="pre">Type.get_method_params()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.Type.get_method_return_type"><code class="docutils literal notranslate"><span class="pre">Type.get_method_return_type()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.Type.type_name"><code class="docutils literal notranslate"><span class="pre">Type.type_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/smali/base.html#smali.base.SVMType"><code class="docutils literal notranslate"><span class="pre">SVMType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.SVMType.TYPES"><code class="docutils literal notranslate"><span class="pre">SVMType.TYPES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.SVMType.array_type"><code class="docutils literal notranslate"><span class="pre">SVMType.array_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.SVMType.dim"><code class="docutils literal notranslate"><span class="pre">SVMType.dim</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.SVMType.dvm_name"><code class="docutils literal notranslate"><span class="pre">SVMType.dvm_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.SVMType.full_name"><code class="docutils literal notranslate"><span class="pre">SVMType.full_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.SVMType.is_signature"><code class="docutils literal notranslate"><span class="pre">SVMType.is_signature()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.SVMType.pretty_name"><code class="docutils literal notranslate"><span class="pre">SVMType.pretty_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.SVMType.signature"><code class="docutils literal notranslate"><span class="pre">SVMType.signature</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.SVMType.simple_name"><code class="docutils literal notranslate"><span class="pre">SVMType.simple_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.SVMType.svm_type"><code class="docutils literal notranslate"><span class="pre">SVMType.svm_type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/smali/base.html#smali.base.Signature"><code class="docutils literal notranslate"><span class="pre">Signature</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.Signature.CLINIT"><code class="docutils literal notranslate"><span class="pre">Signature.CLINIT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.Signature.INIT"><code class="docutils literal notranslate"><span class="pre">Signature.INIT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.Signature.declaring_class"><code class="docutils literal notranslate"><span class="pre">Signature.declaring_class</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.Signature.descriptor"><code class="docutils literal notranslate"><span class="pre">Signature.descriptor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.Signature.name"><code class="docutils literal notranslate"><span class="pre">Signature.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.Signature.parameter_types"><code class="docutils literal notranslate"><span class="pre">Signature.parameter_types</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.Signature.return_type"><code class="docutils literal notranslate"><span class="pre">Signature.return_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.Signature.sig"><code class="docutils literal notranslate"><span class="pre">Signature.sig</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/smali/base.html#smali-type">5.4. Smali type</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/smali/base.html#smali.base.SmaliValueProxy"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.SmaliValueProxy.RE_BOOL_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_BOOL_VALUE</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.SmaliValueProxy.RE_BYTE_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_BYTE_VALUE</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.SmaliValueProxy.RE_CHAR_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_CHAR_VALUE</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.SmaliValueProxy.RE_DOUBLE_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_DOUBLE_VALUE</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.SmaliValueProxy.RE_FLOAT_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_FLOAT_VALUE</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.SmaliValueProxy.RE_HEX_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_HEX_VALUE</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.SmaliValueProxy.RE_INT_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_INT_VALUE</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.SmaliValueProxy.RE_LONG_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_LONG_VALUE</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.SmaliValueProxy.RE_SHORT_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_SHORT_VALUE</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.SmaliValueProxy.RE_STRING_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_STRING_VALUE</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.SmaliValueProxy.RE_TYPE_VALUE"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.RE_TYPE_VALUE</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.SmaliValueProxy.actual_value"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.actual_value</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.SmaliValueProxy.is_type_descriptor"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.is_type_descriptor()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/smali/base.html#smali.base.SmaliValueProxy.value"><code class="docutils literal notranslate"><span class="pre">SmaliValueProxy.value</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="api/smali/base.html#smali.SmaliValue"><code class="docutils literal notranslate"><span class="pre">SmaliValue()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/smali/base.html#smali.smali_value"><code class="docutils literal notranslate"><span class="pre">smali_value()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/smali/base.html#utility-components">5.5. Utility components</a><ul>
@@ -327,6 +323,7 @@
 <li class="toctree-l4"><a class="reference internal" href="api/smali/bridge_api.html#smali.bridge.lang.SmaliMember.modifiers"><code class="docutils literal notranslate"><span class="pre">SmaliMember.modifiers</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/smali/bridge_api.html#smali.bridge.lang.SmaliMember.parent"><code class="docutils literal notranslate"><span class="pre">SmaliMember.parent</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/smali/bridge_api.html#smali.bridge.lang.SmaliMember.signature"><code class="docutils literal notranslate"><span class="pre">SmaliMember.signature</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smali/bridge_api.html#smali.bridge.lang.SmaliMember.type"><code class="docutils literal notranslate"><span class="pre">SmaliMember.type</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="api/smali/bridge_api.html#smali.bridge.lang.SmaliAnnotation"><code class="docutils literal notranslate"><span class="pre">SmaliAnnotation</span></code></a><ul>
@@ -335,7 +332,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="api/smali/bridge_api.html#smali.bridge.lang.SmaliField"><code class="docutils literal notranslate"><span class="pre">SmaliField</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="api/smali/bridge_api.html#smali.bridge.lang.SmaliField.name"><code class="docutils literal notranslate"><span class="pre">SmaliField.name</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/smali/bridge_api.html#smali.bridge.lang.SmaliField.smali_type"><code class="docutils literal notranslate"><span class="pre">SmaliField.smali_type</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/smali/bridge_api.html#smali.bridge.lang.SmaliField.value"><code class="docutils literal notranslate"><span class="pre">SmaliField.value</span></code></a></li>
 </ul>
 </li>
@@ -351,6 +347,7 @@
 <li class="toctree-l4"><a class="reference internal" href="api/smali/bridge_api.html#smali.bridge.lang.SmaliClass.clinit"><code class="docutils literal notranslate"><span class="pre">SmaliClass.clinit()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/smali/bridge_api.html#smali.bridge.lang.SmaliClass.field"><code class="docutils literal notranslate"><span class="pre">SmaliClass.field()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/smali/bridge_api.html#smali.bridge.lang.SmaliClass.fields"><code class="docutils literal notranslate"><span class="pre">SmaliClass.fields()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smali/bridge_api.html#smali.bridge.lang.SmaliClass.get_declared_methods"><code class="docutils literal notranslate"><span class="pre">SmaliClass.get_declared_methods()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/smali/bridge_api.html#smali.bridge.lang.SmaliClass.inner_class"><code class="docutils literal notranslate"><span class="pre">SmaliClass.inner_class()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/smali/bridge_api.html#smali.bridge.lang.SmaliClass.inner_classes"><code class="docutils literal notranslate"><span class="pre">SmaliClass.inner_classes</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/smali/bridge_api.html#smali.bridge.lang.SmaliClass.interfaces"><code class="docutils literal notranslate"><span class="pre">SmaliClass.interfaces</span></code></a></li>
@@ -512,23 +509,23 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/smali/base.html#smali.base.AccessType">AccessType (class in smali.base)</a>
 </li>
-      <li><a href="api/smali/base.html#smali.base.SmaliValueProxy.actual_value">actual_value (smali.base.SmaliValueProxy attribute)</a>
-</li>
       <li><a href="api/smali/writer.html#smali.writer._CodeCache.add">add() (smali.writer._CodeCache method)</a>
 </li>
       <li><a href="api/smali/writer.html#smali.writer._CodeCache.add_comment">add_comment() (smali.writer._CodeCache method)</a>
 </li>
       <li><a href="api/smali/writer.html#smali.writer._CodeCache.add_to_cache">add_to_cache() (smali.writer._CodeCache method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/smali/bridge_api.html#smali.bridge.lang.SmaliMember.annotations">annotations (smali.bridge.lang.SmaliMember property)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/smali/visitor.html#smali.visitor.AnnotationVisitor">AnnotationVisitor (class in smali.visitor)</a>
 </li>
       <li><a href="api/smali/writer.html#smali.writer._CodeCache.apply_code_cache">apply_code_cache() (smali.writer._CodeCache method)</a>
 </li>
       <li><a href="api/smali/bridge_api.html#smali.bridge.frame.Frame.array_data">array_data (smali.bridge.frame.Frame attribute)</a>
+</li>
+      <li><a href="api/smali/base.html#smali.base.SVMType.array_type">array_type (smali.base.SVMType property)</a>
 </li>
       <li><a href="api/smali/bridge_api.html#smali.bridge.lang.SmaliAnnotation.attr">attr (smali.bridge.lang.SmaliAnnotation attribute)</a>
 </li>
@@ -546,21 +543,19 @@
 </li>
       <li><a href="api/smali/shell.html#smali.shell.ISmaliShell.check_import">check_import (smali.shell.ISmaliShell attribute)</a>
 </li>
-      <li><a href="api/smali/base.html#smali.base.Type.class_name">class_name (smali.base.Type property)</a>
-</li>
       <li><a href="api/smali/bridge.html#smali.bridge.vm.ClassLoader">ClassLoader (class in smali.bridge.vm)</a>
 </li>
       <li><a href="api/smali/bridge.html#smali.bridge.vm.SmaliVM.classloader">classloader (smali.bridge.vm.SmaliVM attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/smali/visitor.html#smali.visitor.ClassVisitor">ClassVisitor (class in smali.visitor)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/smali/base.html#smali.base.Line.cleaned">cleaned (smali.base.Line attribute)</a>
 </li>
       <li><a href="api/smali/writer.html#smali.writer._CodeCache.clear">clear() (smali.writer._CodeCache method)</a>
 </li>
-      <li><a href="api/smali/base.html#smali.base.Type.CLINIT">CLINIT (smali.base.Type attribute)</a>
+      <li><a href="api/smali/base.html#smali.base.Signature.CLINIT">CLINIT (smali.base.Signature attribute)</a>
 </li>
       <li><a href="api/smali/bridge_api.html#smali.bridge.lang.SmaliClass.clinit">clinit() (smali.bridge.lang.SmaliClass method)</a>
 </li>
@@ -578,15 +573,17 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/smali/bridge.html#smali.bridge.vm.SmaliVM.debug_handler">debug_handler (smali.bridge.vm.SmaliVM attribute)</a>
 </li>
+      <li><a href="api/smali/base.html#smali.base.Signature.declaring_class">declaring_class (smali.base.Signature property)</a>
+</li>
       <li><a href="api/smali/shell.html#smali.shell.ISmaliShell.default">default() (smali.shell.ISmaliShell method)</a>
 </li>
       <li><a href="api/smali/shell.html#smali.shell.ISmaliShell.DEFAULT_PROMPT">DEFAULT_PROMPT (smali.shell.ISmaliShell attribute)</a>
 </li>
       <li><a href="api/smali/bridge.html#smali.bridge.vm.ClassLoader.define_class">define_class() (smali.bridge.vm.ClassLoader method)</a>
 </li>
-      <li><a href="api/smali/base.html#smali.base.Type.descriptor">descriptor (smali.base.Type property)</a>
+      <li><a href="api/smali/base.html#smali.base.Signature.descriptor">descriptor (smali.base.Signature property)</a>
 </li>
-      <li><a href="api/smali/base.html#smali.base.Type.dim">dim (smali.base.Type property)</a>
+      <li><a href="api/smali/base.html#smali.base.SVMType.dim">dim (smali.base.SVMType property)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -603,6 +600,8 @@
       <li><a href="api/smali/shell.html#smali.shell.ISmaliShell.do_label">do_label() (smali.shell.ISmaliShell method)</a>
 </li>
       <li><a href="api/smali/shell.html#smali.shell.ISmaliShell.do_vars">do_vars() (smali.shell.ISmaliShell method)</a>
+</li>
+      <li><a href="api/smali/base.html#smali.base.SVMType.dvm_name">dvm_name (smali.base.SVMType property)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -644,6 +643,8 @@
 </li>
       <li><a href="api/smali/bridge_api.html#smali.bridge.frame.Frame">Frame (class in smali.bridge.frame)</a>
 </li>
+      <li><a href="api/smali/base.html#smali.base.SVMType.full_name">full_name (smali.base.SVMType property)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -656,17 +657,13 @@
 </li>
       <li><a href="api/smali/bridge.html#smali.bridge.vm.SmaliVM.get_class">get_class() (smali.bridge.vm.SmaliVM method)</a>
 </li>
-      <li><a href="api/smali/writer.html#smali.writer._CodeCache.get_code">get_code() (smali.writer._CodeCache method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/smali/writer.html#smali.writer._CodeCache.get_code">get_code() (smali.writer._CodeCache method)</a>
+</li>
+      <li><a href="api/smali/bridge_api.html#smali.bridge.lang.SmaliClass.get_declared_methods">get_declared_methods() (smali.bridge.lang.SmaliClass method)</a>
+</li>
       <li><a href="api/smali/base.html#smali.base.AccessType.get_flags">get_flags() (smali.base.AccessType static method)</a>
-</li>
-      <li><a href="api/smali/base.html#smali.base.Type.get_method_name">get_method_name() (smali.base.Type method)</a>
-</li>
-      <li><a href="api/smali/base.html#smali.base.Type.get_method_params">get_method_params() (smali.base.Type method)</a>
-</li>
-      <li><a href="api/smali/base.html#smali.base.Type.get_method_return_type">get_method_return_type() (smali.base.Type method)</a>
 </li>
       <li><a href="api/smali/base.html#smali.base.AccessType.get_names">get_names() (smali.base.AccessType static method)</a>
 </li>
@@ -690,7 +687,7 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/smali/writer.html#smali.writer._CodeCache.indent">indent (smali.writer._CodeCache property)</a>
 </li>
-      <li><a href="api/smali/base.html#smali.base.Type.INIT">INIT (smali.base.Type attribute)</a>
+      <li><a href="api/smali/base.html#smali.base.Signature.INIT">INIT (smali.base.Signature attribute)</a>
 </li>
       <li><a href="api/smali/bridge_api.html#smali.bridge.lang.SmaliObject.init">init() (smali.bridge.lang.SmaliObject method)</a>
 </li>
@@ -708,7 +705,7 @@
 </li>
       <li><a href="api/smali/bridge_api.html#smali.bridge.lang.SmaliMember.is_annotation_present">is_annotation_present() (smali.bridge.lang.SmaliMember method)</a>
 </li>
-      <li><a href="api/smali/base.html#smali.base.SmaliValueProxy.is_type_descriptor">is_type_descriptor() (smali.base.SmaliValueProxy static method)</a>
+      <li><a href="api/smali/base.html#smali.base.SVMType.is_signature">is_signature() (smali.base.SVMType method)</a>
 </li>
       <li><a href="api/smali/shell.html#smali.shell.ISmaliShell">ISmaliShell (class in smali.shell)</a>
 </li>
@@ -777,9 +774,11 @@
 <h2 id="N">N</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/smali/bridge_api.html#smali.bridge.errors.ExecutionError.name">name (smali.bridge.errors.ExecutionError attribute)</a>
+      <li><a href="api/smali/base.html#smali.base.Signature.name">name (smali.base.Signature property)</a>
 
       <ul>
+        <li><a href="api/smali/bridge_api.html#smali.bridge.errors.ExecutionError.name">(smali.bridge.errors.ExecutionError attribute)</a>
+</li>
         <li><a href="api/smali/bridge_api.html#smali.bridge.lang.SmaliClass.name">(smali.bridge.lang.SmaliClass property)</a>
 </li>
         <li><a href="api/smali/bridge_api.html#smali.bridge.lang.SmaliField.name">(smali.bridge.lang.SmaliField property)</a>
@@ -817,6 +816,8 @@
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/smali/base.html#smali.base.Signature.parameter_types">parameter_types (smali.base.Signature property)</a>
+</li>
       <li><a href="api/smali/bridge_api.html#smali.bridge.lang.SmaliMethod.parameters">parameters (smali.bridge.lang.SmaliMethod property)</a>
 </li>
       <li><a href="api/smali/bridge_api.html#smali.bridge.frame.Frame.parent">parent (smali.bridge.frame.Frame attribute)</a>
@@ -839,6 +840,8 @@
 </li>
       <li><a href="api/smali/shell.html#smali.shell.ISmaliShell.precmd">precmd() (smali.shell.ISmaliShell method)</a>
 </li>
+      <li><a href="api/smali/base.html#smali.base.SVMType.pretty_name">pretty_name (smali.base.SVMType property)</a>
+</li>
       <li><a href="api/smali/shell.html#smali.shell.ISmaliShell.prompt">prompt (smali.shell.ISmaliShell attribute)</a>
 </li>
   </ul></td>
@@ -849,31 +852,7 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/smali/base.html#smali.base.Line.raw">raw (smali.base.Line attribute)</a>
 </li>
-      <li><a href="api/smali/base.html#smali.base.SmaliValueProxy.RE_BOOL_VALUE">RE_BOOL_VALUE (smali.base.SmaliValueProxy attribute)</a>
-</li>
-      <li><a href="api/smali/base.html#smali.base.SmaliValueProxy.RE_BYTE_VALUE">RE_BYTE_VALUE (smali.base.SmaliValueProxy attribute)</a>
-</li>
-      <li><a href="api/smali/base.html#smali.base.SmaliValueProxy.RE_CHAR_VALUE">RE_CHAR_VALUE (smali.base.SmaliValueProxy attribute)</a>
-</li>
-      <li><a href="api/smali/base.html#smali.base.SmaliValueProxy.RE_DOUBLE_VALUE">RE_DOUBLE_VALUE (smali.base.SmaliValueProxy attribute)</a>
-</li>
       <li><a href="api/smali/base.html#smali.base.Line.RE_EOL_COMMENT">RE_EOL_COMMENT (smali.base.Line attribute)</a>
-</li>
-      <li><a href="api/smali/base.html#smali.base.SmaliValueProxy.RE_FLOAT_VALUE">RE_FLOAT_VALUE (smali.base.SmaliValueProxy attribute)</a>
-</li>
-      <li><a href="api/smali/base.html#smali.base.SmaliValueProxy.RE_HEX_VALUE">RE_HEX_VALUE (smali.base.SmaliValueProxy attribute)</a>
-</li>
-      <li><a href="api/smali/base.html#smali.base.SmaliValueProxy.RE_INT_VALUE">RE_INT_VALUE (smali.base.SmaliValueProxy attribute)</a>
-</li>
-      <li><a href="api/smali/base.html#smali.base.SmaliValueProxy.RE_LONG_VALUE">RE_LONG_VALUE (smali.base.SmaliValueProxy attribute)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/smali/base.html#smali.base.SmaliValueProxy.RE_SHORT_VALUE">RE_SHORT_VALUE (smali.base.SmaliValueProxy attribute)</a>
-</li>
-      <li><a href="api/smali/base.html#smali.base.SmaliValueProxy.RE_STRING_VALUE">RE_STRING_VALUE (smali.base.SmaliValueProxy attribute)</a>
-</li>
-      <li><a href="api/smali/base.html#smali.base.SmaliValueProxy.RE_TYPE_VALUE">RE_TYPE_VALUE (smali.base.SmaliValueProxy attribute)</a>
 </li>
       <li><a href="api/smali/shell.html#smali.shell.ISmaliShell.reader">reader (smali.shell.ISmaliShell attribute)</a>
 </li>
@@ -887,8 +866,14 @@
         <li><a href="api/smali/writer.html#smali.writer._SmaliClassWriter.reset">(smali.writer._SmaliClassWriter method)</a>
 </li>
       </ul></li>
-      <li><a href="api/smali/bridge_api.html#smali.bridge.lang.SmaliMethod.return_type">return_type (smali.bridge.lang.SmaliMethod property)</a>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/smali/base.html#smali.base.Signature.return_type">return_type (smali.base.Signature property)</a>
+
+      <ul>
+        <li><a href="api/smali/bridge_api.html#smali.bridge.lang.SmaliMethod.return_type">(smali.bridge.lang.SmaliMethod property)</a>
 </li>
+      </ul></li>
       <li><a href="api/smali/bridge_api.html#smali.bridge.frame.Frame.return_value">return_value (smali.bridge.frame.Frame attribute)</a>
 </li>
       <li><a href="api/smali/shell.html#smali.shell.ISmaliShell.root">root (smali.shell.ISmaliShell attribute)</a>
@@ -899,10 +884,22 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/smali/bridge_api.html#smali.bridge.lang.SmaliMember.signature">signature (smali.bridge.lang.SmaliMember property)</a>
+      <li><a href="api/smali/base.html#smali.base.Signature.sig">sig (smali.base.Signature property)</a>
 </li>
-      <li><a href="api/smali/bridge_api.html#smali.bridge.lang.SmaliClass.simple_name">simple_name (smali.bridge.lang.SmaliClass property)</a>
+      <li><a href="api/smali/base.html#smali.base.Signature">Signature (class in smali.base)</a>
 </li>
+      <li><a href="api/smali/base.html#smali.base.SVMType.signature">signature (smali.base.SVMType property)</a>
+
+      <ul>
+        <li><a href="api/smali/bridge_api.html#smali.bridge.lang.SmaliMember.signature">(smali.bridge.lang.SmaliMember property)</a>
+</li>
+      </ul></li>
+      <li><a href="api/smali/base.html#smali.base.SVMType.simple_name">simple_name (smali.base.SVMType property)</a>
+
+      <ul>
+        <li><a href="api/smali/bridge_api.html#smali.bridge.lang.SmaliClass.simple_name">(smali.bridge.lang.SmaliClass property)</a>
+</li>
+      </ul></li>
       <li>
     smali
 
@@ -959,6 +956,8 @@
         <li><a href="api/smali/visitor.html#module-smali.visitor">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     smali.writer
 
@@ -966,11 +965,9 @@
         <li><a href="api/smali/writer.html#module-smali.writer">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/smali/bridge_api.html#smali.bridge.lang.SmaliObject.smali_class">smali_class (smali.bridge.lang.SmaliObject property)</a>
 </li>
-      <li><a href="api/smali/bridge_api.html#smali.bridge.lang.SmaliField.smali_type">smali_type (smali.bridge.lang.SmaliField property)</a>
+      <li><a href="api/smali/base.html#smali.smali_value">smali_value() (in module smali)</a>
 </li>
       <li><a href="api/smali/bridge_api.html#smali.bridge.lang.SmaliAnnotation">SmaliAnnotation (class in smali.bridge.lang)</a>
 </li>
@@ -985,10 +982,6 @@
       <li><a href="api/smali/bridge_api.html#smali.bridge.lang.SmaliObject">SmaliObject (class in smali.bridge.lang)</a>
 </li>
       <li><a href="api/smali/reader.html#smali.reader.SmaliReader">SmaliReader (class in smali.reader)</a>
-</li>
-      <li><a href="api/smali/base.html#smali.SmaliValue">SmaliValue() (in module smali)</a>
-</li>
-      <li><a href="api/smali/base.html#smali.base.SmaliValueProxy">SmaliValueProxy (class in smali.base)</a>
 </li>
       <li><a href="api/smali/bridge.html#smali.bridge.vm.SmaliVM">SmaliVM (class in smali.bridge.vm)</a>
 </li>
@@ -1006,6 +999,12 @@
 </li>
       <li><a href="api/smali/reader.html#smali.reader.SupportsCopy">SupportsCopy (class in smali.reader)</a>
 </li>
+      <li><a href="api/smali/base.html#smali.base.SVMType.svm_type">svm_type (smali.base.SVMType property)</a>
+</li>
+      <li><a href="api/smali/base.html#smali.base.SVMType">SVMType (class in smali.base)</a>
+</li>
+      <li><a href="api/smali/base.html#smali.base.SVMType.TYPES">SVMType.TYPES (class in smali.base)</a>
+</li>
       <li><a href="api/smali/bridge_api.html#smali.bridge.frame.Frame.switch_data">switch_data (smali.bridge.frame.Frame attribute)</a>
 </li>
   </ul></td>
@@ -1018,9 +1017,7 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/smali/base.html#smali.base.Type">Type (class in smali.base)</a>
-</li>
-      <li><a href="api/smali/base.html#smali.base.Type.type_name">type_name (smali.base.Type property)</a>
+      <li><a href="api/smali/bridge_api.html#smali.bridge.lang.SmaliMember.type">type (smali.bridge.lang.SmaliMember property)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -1038,12 +1035,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/smali/reader.html#smali.reader.SmaliReader.validate">validate (smali.reader.SmaliReader attribute)</a>
 </li>
-      <li><a href="api/smali/base.html#smali.base.SmaliValueProxy.value">value (smali.base.SmaliValueProxy attribute)</a>
-
-      <ul>
-        <li><a href="api/smali/bridge_api.html#smali.bridge.lang.SmaliField.value">(smali.bridge.lang.SmaliField property)</a>
+      <li><a href="api/smali/bridge_api.html#smali.bridge.lang.SmaliField.value">value (smali.bridge.lang.SmaliField property)</a>
 </li>
-      </ul></li>
       <li><a href="api/smali/reader.html#smali.reader.SmaliReader.visit">visit() (smali.reader.SmaliReader method)</a>
 </li>
       <li><a href="api/smali/visitor.html#smali.visitor.ClassVisitor.visit_annotation">visit_annotation() (smali.visitor.ClassVisitor method)</a>

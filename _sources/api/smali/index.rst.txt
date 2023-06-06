@@ -83,21 +83,37 @@ that, array type descriptors will start with opened square brackets according to
 number of dimensions. For instance, a two dimensional array would get two opened square
 brackets in its type descriptor.
 
-This API contains a class called :class:`Type` that can be used to retrieve type descriptors
+This API contains a class called :class:`SVMType` that can be used to retrieve type descriptors
 as well as class names:
 
 .. code-block:: python
     :linenos:
 
-    from smali import Type
+    from smali import SVMType, Signature
 
-    car_type = Type("com.example.car")
-    # Type descriptor => Lcom/example/car;
-    descriptor = car_type.descriptor
-    # Original class name => com.example.car
-    name = car_type.class_name
-    # Internal name => com/example/car
-    internal = car_type.type_name
+    # simple type instance
+    t = SVMType("Lcom/example/Class;")
+    t.simple_name # Class
+    t.pretty_name # com.example.Class
+    t.dvm_name # com/example/Class
+    t.full_name # Lcom/example/Class;
+    t.svm_type # SVMType.TYPES.CLASS
+
+    # create new type instance for method signature
+    m = SVMType("getName([BLjava/lang/String;)Ljava/lang/String;")
+    m.svm_type # SVMType.TYPES.METHOD
+    # retrieve signature instance
+    s = m.signature or Signature(m)
+    s.return_type # SVMType("Ljava/lang/String;")
+    s.parameter_types # [SVMType("[B"), SVMType("Ljava/lang/String;")]
+    s.name # getName
+    s.declaring_class # would return the class before '->' (only if defined)
+
+    # array types
+    array = SVMType("[B")
+    array.svm_type # SVMType.TYPES.ARRAY
+    array.array_type # SVMType("B")
+    array.dim # 1 (one dimension)
 
 As an input can be used anything that represents the class as type descriptor, original
 class name or internal name (array types are supported as well).
@@ -107,22 +123,24 @@ Method descriptors
 
 Unlike method descriptors in compiled Java classes, Smali's method descriptors contain the
 method's name. The general structure, described in detail in the ASM API [1]_ documentation,
-is the same. To get contents of a method descriptor the :class:`Type` class, introduced before,
+is the same. To get contents of a method descriptor the :class:`SVMType` class, introduced before,
 can be used again:
 
 .. code-block:: python
     :linenos:
 
-    from smali import Type
+    from smali import SVMType
 
-    method = Type("getName([BLjava/lang/String;)Ljava/lang/String;")
-    # get the method's name
-    name = method.get_method_name()
+    method = SVMType("getName([BLjava/lang/String;)Ljava/lang/String;")
+    # get the method's signature
+    signature = method.signature
     # get parameter type descriptors
-    params: list[str] = method.get_method_params()
+    params: list[SVMType] = signature.parameter_types
     # get return type descriptor
-    return_type = method.get_method_return_type()
+    return_type = signature.return_type
 
+    # the class type can be retrieved if defined
+    cls: SVMType = signature.declaring_class
 
 .. caution::
 
@@ -194,8 +212,8 @@ class name, super class and implementing interfaces:
     class SmaliClassPrinter(ClassVisitor):
         def visit_class(self, name: str, access_flags: int) -> None:
             # The provided name is the type descriptor - if we want the
-            # Java class name, use a Type() call:
-            # cls_name = Type(name).class_name
+            # Java class name, use a SVMType() call:
+            # cls_name = SVMType(name).simple_name
             print(f'.class {name}')
 
         def visit_super(self, super_class: str) -> None:

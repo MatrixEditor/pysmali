@@ -13,7 +13,7 @@ Smali token
 
 .. autoclass:: smali.base.Token
     :members:
-    
+
 
 Smali access modifiers
 ======================
@@ -25,17 +25,16 @@ Smali access modifiers
 Smali type descriptors
 ======================
 
-.. autoclass:: smali.base.Type
+.. autoclass:: smali.base.SVMType
     :members:
 
+.. autoclass:: smali.base.Signature
+    :members:
 
 Smali type
 ==========
 
-.. autoclass:: smali.base.SmaliValueProxy
-    :members:
-
-.. autofunction:: smali.SmaliValue
+.. autofunction:: smali.smali_value
 
 Utility components
 ==================
