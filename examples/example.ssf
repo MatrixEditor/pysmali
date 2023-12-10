@@ -1,0 +1,15 @@
+#!/usr/bin/ismali
+# This file is an example of a Smali-Script that muliplies two values 
+# and stores the result in an extra register.
+
+# Recursive imports won't be done if 'shell.check_imports' is enabled
+import examples/example.ssf
+
+const/16 a, 50
+const/16 b, 5
+const/16 c, 0
+
+mul-int c,a,b
+
+# use the vars-command to print the result as JSON string
+vars

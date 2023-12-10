@@ -1,0 +1,31 @@
+[project]
+name = "pysmali"
+version = "0.2.2"
+description="Smali Visitor-API and Smali emulator"
+authors = [
+  { name="MatrixEditor", email="not@supported.com" },
+]
+readme = "README.md"
+classifiers = [
+    'Development Status :: 5 - Production/Stable',
+    'Intended Audience :: Science/Research',
+    'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+]
+
+[project.scripts]
+ismali = "smali.shell:start_cli"
+
+[project.urls]
+"Homepage" = "https://github.com/MatrixEditor/pysmali"
+"API-Docs" = "https://pysmali.readthedocs.io/"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["smali*"]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
