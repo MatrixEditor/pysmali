@@ -35,7 +35,7 @@ import re
 
 from io import UnsupportedOperation
 
-from smali.base import AccessType, SVMType, Signature
+from smali.base import AccessType, SVMType
 from smali.bridge.errors import NoSuchMethodError, NoSuchFieldError, NoSuchClassError
 
 __all__ = [
