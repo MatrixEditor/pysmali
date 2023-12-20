@@ -5,7 +5,7 @@
 ![Status](https://img.shields.io:/static/v1?label=Status&message=Pre-Release&color=teal)
 ![Platform](https://img.shields.io:/static/v1?label=Platforms&message=Linux|Windows&color=lightgrey)
 [![Build and Deploy Sphinx Documentation](https://github.com/MatrixEditor/pysmali/actions/workflows/sphinx.yml/badge.svg)](https://github.com/MatrixEditor/pysmali/actions/workflows/sphinx.yml)
-![PyPi](https://img.shields.io:/static/v1?label=PyPi&message=0.2.2&color=lightblue)
+[![PyPI](https://img.shields.io/pypi/v/pysmali)](https://pypi.org/project/pysmali/)
 
 
 The main functionalities of this repository cover creating and parsing Smali files with Python3 as well as interpret Smali source code files. There is also an interactive interpreter provided that acts as a Python-CLI.
@@ -86,6 +86,18 @@ class NamePrinterVisitor(ClassVisitor):
 reader = SmaliReader()
 reader.visit(".class public final Lcom/example/Hello;", NamePrinterVisitor())
 ```
+
+> [!TIP]
+> There is an example Smali file in this repository. If you want to print out **all**
+> defined classes, you have to implement another method (based on the example above):
+> ```python
+> class NamePrinterVisitor(ClassVisitor):
+>   # ... method from above does not change
+>   def visit_inner_class(self, name: str, access_flags: int) -> ClassVisitor:
+>        cls_type = SVMType(name) # same as above
+>        print("Inner Class:", cls_type.pretty_name)
+>        return self
+> ```
 
 ### Writing Smali-Files
 
