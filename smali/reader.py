@@ -28,14 +28,7 @@ from smali.visitor import (
     AnnotationVisitor,
     MethodVisitor,
 )
-from smali.base import (
-    AccessType,
-    Line,
-    Token,
-    SVMType,
-    smali_value,
-    is_type_descriptor
-)
+from smali.base import AccessType, Line, Token, SVMType, smali_value, is_type_descriptor
 from smali.opcode import RETURN, GOTO
 
 
@@ -56,7 +49,7 @@ class SupportsCopy:
 EMPTY_ANNOV = AnnotationVisitor()
 EMPTY_METHV = MethodVisitor()
 EMPTY_FIELDV = FieldVisitor()
-
+EMPTY_CLASSV = ClassVisitor()
 
 class SmaliReader:
     """Basic implementation of a line-base Smali-SourceCode parser.
@@ -382,7 +375,11 @@ class SmaliReader:
             # Dynamic method calling, we just need to implement specific
             # token handling.
             method = f'_handle_{statement.replace("-", "_")}'
-            getattr(self, method)()
+            callback = getattr(self, method, None)
+            if callback is None:
+                raise SyntaxError(f"Invalid token: {method!r} - not implemented!")
+
+            callback()
 
     def _class_def(self, next_line=True, inner_class=False):
         """Parses (and verifies) the class definition.
@@ -423,14 +420,14 @@ class SmaliReader:
 
             access_flags = AccessType.get_flags(flags)
             if not inner_class:
-                # Always null
-                c_visitor = self._visitor.visit_class(name, access_flags)
+                c_visitor = self._visitor
+                self._visitor.visit_class(name, access_flags)
             else:
                 c_visitor = self._visitor.visit_inner_class(name, access_flags)
 
             # Don't forget the comment
             self._publish_comment()
-            return c_visitor
+            return c_visitor or EMPTY_CLASSV
         except StopIteration as err:
             self._throw_eol(err)
 
@@ -521,7 +518,12 @@ class SmaliReader:
 
         :meta public:
         """
-        directive = self.line.last()
+        # NOTE: As posted in issue #2, the reader would throw a SyntaxError upon
+        # end-statements that store more than two elements (e.g. '.end local v2').
+        # Here, we first skip the '.end' statement and then resolve the next line
+        # element.
+        next(self.line)
+        directive = self.line.peek()
         if directive in (Token.LOCAL, Token.PARAM):
             self._copy_line()
             return
@@ -597,7 +599,7 @@ class SmaliReader:
         try:
             token = next(self.line)
             self._validate_token(token, Token.SUBANNOTATION)
-            
+
             # As we need the annotation value's name, we have to
             # use the cleaned line buffer in the current line object.
             name = self.line.cleaned[self.line.cleaned.find(" ") :]
@@ -715,13 +717,16 @@ class SmaliReader:
     ###########################################################################################
     # METHOD SPECIFIC IMPLEMENTATION
     ###########################################################################################
+    def _handle_parameter(self) -> None:
+        # Simple workaround to handle #1
+        self._handle_param()
 
     def _handle_param(self) -> None:
         if not self._visitor or self._visitor == EMPTY_METHV:
             self._copy_line()
             return
 
-        # Skip '.param' instruction
+        # Skip '.param' or '.parameter' instruction
         next(self.line)
 
         register = next(self.line)
