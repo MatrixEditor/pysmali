@@ -4,6 +4,12 @@
 Changelog
 *********
 
+.. _release-0.2.3:
+
+* Fixed issues #1 and `#2 <https://github.com/MatrixEditor/pysmali/issues/2>`
+* Added empty class visitor to prevent none type visitor errors
+* Added an appropriate error message upon invalid statements.
+
 .. _release-0.2.2:
 
 A small patch created by `TheZ3ro <https://github.com/TheZ3ro>` fixing the following issues:
