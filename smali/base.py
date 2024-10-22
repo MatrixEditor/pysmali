@@ -1,5 +1,5 @@
 # This file is part of pysmali's Smali API
-# Copyright (C) 2023 MatrixEditor
+# Copyright (C) 2023-2024 MatrixEditor
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -508,12 +508,13 @@ class Signature:
         return self.sig
 
     def __repr__(self) -> str:
-        return f"Signature(\"{self.__signature}\")"
+        return f'Signature("{self.__signature}")'
 
 
 class SVMType:
     class TYPES(Enum):
         """Represents the classification of a type descriptor."""
+
         ARRAY = 1
         PRIMITIVE = 2
         CLASS = 3
@@ -560,7 +561,7 @@ class SVMType:
         return self.__type
 
     def __repr__(self) -> str:
-        return f"SVMType(\"{self.__type}\")"
+        return f'SVMType("{self.__type}")'
 
     def is_signature(self) -> bool:
         """Returns whether this type instance is a method signature.
@@ -619,13 +620,19 @@ class SVMType:
 
         >>> array = SVMType("[[Lcom/example/Class;")
         >>> array.pretty_name
-        '[[com.example.Class'
+        'com.example.Class[][]'
 
         :return: full name without ``L`` and ``;``; ``/`` is replaced by a dot.
         :rtype: str
         """
-        value = str(self)
-        return re.sub(r"\/|(->)", ".", value.replace("L", "").replace(";", ""))
+        array_type = self.array_type
+        if not array_type:
+            value = str(self)
+        else:
+            value = str(array_type)
+        return re.sub(r"\/|(->)", ".", value.removeprefix("L").removesuffix(";")) + (
+            "[]" * self.dim
+        )
 
     @property
     def dvm_name(self) -> str:
@@ -635,11 +642,22 @@ class SVMType:
         >>> cls.dvm_name
         'com/example/Class'
 
+        Arrays won't be covered by this method, thus the returned value
+        returns the full class name only:
+
+        >>> cls = SVMType("[[Lcom/example/Class;")
+        >>> cls.dvm_name
+        'com/example/Class'
+
         :return: the full name without ``L`` and ``;``.
         :rtype: str
         """
-        value = str(self)
-        return re.sub(r"[L;]", "", value)
+        array_type = self.array_type
+        if not array_type:
+            value = str(self)
+        else:
+            value = str(array_type)
+        return value.removeprefix("L").removesuffix(";")
 
     @property
     def full_name(self) -> str:
@@ -693,6 +711,7 @@ def smali_value(value: str) -> int | float | str | SVMType | bool:
 
     return actual_value
 
+
 RE_INT_VALUE = re.compile(r"[\-\+]?(0x)?[\dabcdefABCDEF]+$")
 """Pattern for ``int`` values."""
 
@@ -735,13 +754,17 @@ TYPE_MAP: list = [
     (RE_FLOAT_VALUE, lambda x: float(x[:-1])),
     (RE_DOUBLE_VALUE, lambda x: float(x[:-1])),
     (RE_CHAR_VALUE, lambda x: str(x[1:-1])),
-    (RE_STRING_VALUE, lambda x: str(x[1:-1]).encode().decode('unicode_escape')), # support unicode
+    (
+        RE_STRING_VALUE,
+        lambda x: str(x[1:-1]).encode().decode("unicode_escape"),
+    ),  # support unicode
     (RE_TYPE_VALUE, SVMType),
 ]
 """Defines custom handlers for actual value defintions
 
 :meta private:
 """
+
 
 def is_type_descriptor(value: str) -> bool:
     """Returns whether the given value is a valid type descriptor.
@@ -752,4 +775,3 @@ def is_type_descriptor(value: str) -> bool:
     :rtype: bool
     """
     return RE_TYPE_VALUE.match(value) is not None
-

@@ -1,5 +1,5 @@
 # This file is part of pysmali's Smali API
-# Copyright (C) 2023 MatrixEditor
+# Copyright (C) 2023-2024 MatrixEditor
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

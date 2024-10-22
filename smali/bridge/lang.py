@@ -1,5 +1,5 @@
 # This file is part of pysmali's Smali API
-# Copyright (C) 2023 MatrixEditor
+# Copyright (C) 2023-2024 MatrixEditor
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -181,10 +181,10 @@ class SmaliMember:
         return hash(str(self.type))
 
     def __repr__(self) -> str:
-        return f"<{self.__class__.__name__} '{self.signature}' at {id(self):#x}>"
+        return f"<{self.__class__.__name__} {self.signature!r} at {id(self):#x}>"
 
     def __str__(self) -> str:
-        return f"<{self.__class__.__name__} {self.signature}>"
+        return f"<{self.__class__.__name__} {self.signature!r}>"
 
 
 class SmaliAnnotation(SmaliMember):
@@ -507,7 +507,7 @@ class _MethodBroker:
         return self.__name
 
     def __repr__(self) -> str:
-        return f"<MethodBroker of '{self.__name}' at {id(self):#x}"
+        return f"<MethodBroker of {self.__name!r} at {id(self):#x}"
 
     def __iter__(self):
         return iter(self.__methods)
@@ -739,7 +739,7 @@ class SmaliClass(SmaliMember):
                 if method.signature == signature:
                     return method
 
-        raise NoSuchMethodError(f'Method with signature "{signature}" not found')
+        raise NoSuchMethodError(f'Method with signature {signature!r} not found')
 
     def field(self, name: str) -> SmaliField:
         """Returns the field with the given name.
@@ -753,7 +753,7 @@ class SmaliClass(SmaliMember):
         if name in self.__fields:
             return self.__fields[name]
 
-        raise NoSuchFieldError(f"Field with name '{name}' not found")
+        raise NoSuchFieldError(f"Field with name {name!r} not found")
 
     def inner_class(self, name: str) -> "SmaliClass":
         """Returns an inner class by its name.
@@ -932,4 +932,4 @@ class SmaliObject:
         return f"<SmaliObject@{id(self):x}>"
 
     def __str__(self) -> str:
-        return f"<SmaliObject@{id(self):x} fields={len(self.__field_values)} type={self.smali_class}"
+        return f"<SmaliObject@{id(self):x} fields={len(self.__field_values)} type={self.smali_class!r}"

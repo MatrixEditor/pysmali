@@ -1,5 +1,5 @@
 # This file is part of pysmali's Smali API
-# Copyright (C) 2023 MatrixEditor
+# Copyright (C) 2023-2024 MatrixEditor
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,14 +19,14 @@ or can execute smali files.
 
 The options the ``smali.shell`` module accept are the following:
 
-file [file ...]                  
-    The Smali-Script files (``.ssf``) to be interpreted. Note that files 
-    as input won't result in interactive mode. Use the ``-i`` flag to run 
-    the interactive mode afterwards.   
+file [file ...]
+    The Smali-Script files (``.ssf``) to be interpreted. Note that files
+    as input won't result in interactive mode. Use the ``-i`` flag to run
+    the interactive mode afterwards.
 
--i / --interactive   
+-i / --interactive
     Runs the interactive mode after executing/importing input files.
-    
+
 """
 
 from smali.shell.model import ISmaliShell, SMALI_SCRIPT_SUFFIX
