@@ -4,6 +4,10 @@
 Changelog
 *********
 
+.. _release-0.2.4:
+
+* Improved `pretty_name` and `dvm_name` of :class:`SVMType`
+
 .. _release-0.2.3:
 
 * Fixed issues #1 and `#2 <https://github.com/MatrixEditor/pysmali/issues/2>`
