@@ -433,7 +433,7 @@ class _SmaliMethodWriter(MethodVisitor, _ContainsCodeCache):
         indent_value = self.cache.default_indent * (self.cache.indent + 2)
         sep_value = "\n" + indent_value + ":"
         self.cache.add(
-            f".{Token.PACKEDSWITCH} {value}\n{indent_value}{sep_value.join(blocks)}",
+            f".{Token.PACKEDSWITCH} {value}\n{indent_value}:{sep_value.join(blocks)}\n.{Token.END} {Token.PACKEDSWITCH}",
             end="\n",
         )
 
@@ -443,7 +443,7 @@ class _SmaliMethodWriter(MethodVisitor, _ContainsCodeCache):
         indent_value = self.cache.default_indent * (self.cache.indent + 2)
         values = [f"{x} -> :{y}" for x, y in branches.items()]
         sep_value = "\n" + indent_value
-        self.cache.add(f".{Token.SPARSESWITCH}\n{indent_value}{sep_value.join(values)}")
+        self.cache.add(f".{Token.SPARSESWITCH}\n{indent_value}{sep_value.join(values)}\n.{Token.END} {Token.SPARSESWITCH}")
 
     def visit_eol_comment(self, text: str) -> None:
         super().visit_eol_comment(text)
