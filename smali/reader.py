@@ -338,6 +338,8 @@ class SmaliReader:
 
         except (EOFError, ValueError):
             # The error is needed to indicate the visitation should end
+            while not isinstance(self._visitor, ClassVisitor):
+                self.stack.pop()
             self._visitor.visit_end()
 
         except StopIteration as err:
