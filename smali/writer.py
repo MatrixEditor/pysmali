@@ -384,7 +384,7 @@ class _SmaliMethodWriter(MethodVisitor, _ContainsCodeCache):
         super().visit_catchall(exc_name, blocks)
         start, end, catch = blocks
         self.cache.add(
-            ".%s %s { :%s .. :%s } :%s" % (Token.CATCHALL, exc_name, start, end, catch),
+            ".%s { :%s .. :%s } :%s" % (Token.CATCHALL, start, end, catch),
             custom_indent=self.cache.indent + 1,
             end="\n",
         )
