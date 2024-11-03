@@ -4,19 +4,36 @@
 Changelog
 *********
 
+.. _release-0.2.5:
+
+0.2.5
+-----
+
+Some fixes around :class:`_SmaliMethodWriter` by `WaferJay <https://github.com/WaferJay>`_.
+
+* Added missing `.end` directives for packed-switch, sparse-switch and array-data
+
 .. _release-0.2.4:
+
+0.2.4
+-----
 
 * Improved `pretty_name` and `dvm_name` of :class:`SVMType`
 
 .. _release-0.2.3:
 
-* Fixed issues #1 and `#2 <https://github.com/MatrixEditor/pysmali/issues/2>`
-* Added empty class visitor to prevent none type visitor errors
+0.2.3
+-----
+
+* Fixed issues #1 and `#2 <https://github.com/MatrixEditor/pysmali/issues/2>`_
 * Added an appropriate error message upon invalid statements.
 
 .. _release-0.2.2:
 
-A small patch created by `TheZ3ro <https://github.com/TheZ3ro>` fixing the following issues:
+0.2.2
+-----
+
+A small patch created by `TheZ3ro <https://github.com/TheZ3ro>`_ fixing the following issues:
 
 * Fixed ``sparse_switch`` executor that was not executed due to a typo
 * String regex now support handling of unicode strings (e.g. ``const-string v0, "\u06e4\u06eb``"), which initially would result in an error
@@ -31,7 +48,7 @@ In addition, this patch introduces the following new features:
 .. _release-0.2.1:
 
 0.2.1
-=====
+-----
 
 Kudos to `serenees <https://github.com/serenees>`_ for fixing these issues:
 
