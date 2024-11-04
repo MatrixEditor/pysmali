@@ -80,7 +80,7 @@ class AnnotationVisitor(VisitorBase):
         :type values: list
         """
         if self.delegate:
-            self.visit_array(name, values)
+            self.delegate.visit_array(name, values)
 
     def visit_subannotation(
         self, name: str, access_flags: int, signature: str
