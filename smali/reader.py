@@ -604,7 +604,7 @@ class SmaliReader:
 
             # As we need the annotation value's name, we have to
             # use the cleaned line buffer in the current line object.
-            name = self.line.cleaned[self.line.cleaned.find(" ") :]
+            name = self.line.cleaned[:self.line.cleaned.find("=")].strip()
             flags = self._read_access_flags()
             access_flags = AccessType.get_flags(flags)
 
@@ -629,7 +629,7 @@ class SmaliReader:
         try:
             # As we need the annotation value's name, we have to
             # use the cleaned line buffer in the current line object.
-            name = self.line.cleaned[self.line.cleaned.find(" ") :]
+            name = self.line.cleaned[:self.line.cleaned.find("=")].strip()
 
             token = next(self.line)
             self._validate_token(token, Token.ENUM)
