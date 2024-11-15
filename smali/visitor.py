@@ -80,7 +80,7 @@ class AnnotationVisitor(VisitorBase):
         :type values: list
         """
         if self.delegate:
-            self.visit_array(name, values)
+            self.delegate.visit_array(name, values)
 
     def visit_subannotation(
         self, name: str, access_flags: int, signature: str
@@ -145,7 +145,7 @@ class MethodVisitor(VisitorBase):
 
         .. code-block:: bnf
 
-            .catchall <name> { <try_start> .. <try_end> } <catch_handler>
+            .catchall { <try_start> .. <try_end> } <catch_handler>
 
         :param exc_name: the exception descriptor
         :type exc_name: str
@@ -153,7 +153,7 @@ class MethodVisitor(VisitorBase):
         :type blocks: tuple
         """
         if self.delegate:
-            self.delegate.visit_catch(exc_name, blocks)
+            self.delegate.visit_catchall(exc_name, blocks)
 
     def visit_param(self, register: str, name: str) -> None:
         """Called on a ``.param`` statement

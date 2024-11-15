@@ -68,6 +68,7 @@
     .end annotation
 .end field
 
+.field static final MULTIPLE_BINDINGS_URL:Ljava/lang/String; = "http://www.slf4j.org/codes.html#multiple_bindings"
 
 # instance fields
 .field public e:LTs;

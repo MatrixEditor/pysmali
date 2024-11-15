@@ -384,7 +384,7 @@ class _SmaliMethodWriter(MethodVisitor, _ContainsCodeCache):
         super().visit_catchall(exc_name, blocks)
         start, end, catch = blocks
         self.cache.add(
-            ".%s %s { :%s .. :%s } :%s" % (Token.CATCHALL, exc_name, start, end, catch),
+            ".%s { :%s .. :%s } :%s" % (Token.CATCHALL, start, end, catch),
             custom_indent=self.cache.indent + 1,
             end="\n",
         )
@@ -422,7 +422,7 @@ class _SmaliMethodWriter(MethodVisitor, _ContainsCodeCache):
         super().visit_array_data(length, value_list)
         indent_value = self.cache.default_indent * (self.cache.indent + 2)
         sep_value = "\n" + indent_value
-        value_list = map(str, value_list)
+        value_list = map(hex, value_list)
         self.cache.add(
             f".{Token.ARRAYDATA} {length}\n{indent_value}{sep_value.join(value_list)}\n.{Token.END} {Token.ARRAYDATA}",
             end="\n",

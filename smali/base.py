@@ -191,7 +191,7 @@ class Token(Enum):
 class Line:
     """Simple peekable Iterator implementation."""
 
-    RE_EOL_COMMENT = re.compile(r"\s*#.*")
+    RE_EOL_COMMENT = re.compile(r"\s*#.*$")
     """Pattern for EOL (end of line) comments"""
 
     _default = object()
@@ -247,11 +247,12 @@ class Line:
         eol_match = Line.RE_EOL_COMMENT.search(self.cleaned)
         if eol_match is not None:
             start, end = eol_match.span()
-            # Remove the EOL comment and save it in a variable. Note
-            # that the visitor will be notified when StopIteration is
-            # raised.
-            self.eol_comment = eol_match.group(0).lstrip("# ")
-            self.cleaned = self.cleaned[:start] + self.cleaned[end:]
+            if self.cleaned.count('"', 0, start) % 2 == 0:
+                # Remove the EOL comment and save it in a variable. Note
+                # that the visitor will be notified when StopIteration is
+                # raised.
+                self.eol_comment = eol_match.group(0).lstrip("# ")
+                self.cleaned = self.cleaned[:start] + self.cleaned[end:]
 
         self._elements = Line.split_line(self.cleaned)
         self._it = iter(self._elements)
