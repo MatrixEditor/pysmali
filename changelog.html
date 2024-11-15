@@ -6,12 +6,12 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Changelog &mdash; pysmali 0.2.5 documentation</title>
+  <title>Changelog &mdash; pysmali 0.2.6 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
   
-      <script src="_static/documentation_options.js?v=cb850272"></script>
+      <script src="_static/documentation_options.js?v=fc7d8818"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
@@ -68,6 +68,7 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#release-0-2-6">0.2.6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#release-0-2-5">0.2.5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#release-0-2-4">0.2.4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#release-0-2-3">0.2.3</a></li>
@@ -445,28 +446,37 @@
              
   <section id="changelog">
 <span id="id1"></span><h1>Changelog<a class="headerlink" href="#changelog" title="Link to this heading">¶</a></h1>
+<section id="release-0-2-6">
+<span id="id2"></span><h2>0.2.6<a class="headerlink" href="#release-0-2-6" title="Link to this heading">¶</a></h2>
+<p>Some bug fixes by <a class="reference external" href="https://github.com/WaferJay">WaferJay</a>.</p>
+<ul class="simple">
+<li><p>Fixed a bug in end of line comments not parsed properly in strings with <cite>#</cite> inside</p></li>
+<li><p>Improved <cite>.catchall</cite> directive</p></li>
+<li><p>Other fixes, see <a class="reference external" href="https://github.com/MatrixEditor/pysmali/commit/e33b88426bb65eea474d85032c3185a8089a2b92">Commit details</a></p></li>
+</ul>
+</section>
 <section id="release-0-2-5">
-<span id="id2"></span><h2>0.2.5<a class="headerlink" href="#release-0-2-5" title="Link to this heading">¶</a></h2>
+<span id="id3"></span><h2>0.2.5<a class="headerlink" href="#release-0-2-5" title="Link to this heading">¶</a></h2>
 <p>Some fixes around <code class="xref py py-class docutils literal notranslate"><span class="pre">_SmaliMethodWriter</span></code> by <a class="reference external" href="https://github.com/WaferJay">WaferJay</a>.</p>
 <ul class="simple">
 <li><p>Added missing <cite>.end</cite> directives for packed-switch, sparse-switch and array-data</p></li>
 </ul>
 </section>
 <section id="release-0-2-4">
-<span id="id3"></span><h2>0.2.4<a class="headerlink" href="#release-0-2-4" title="Link to this heading">¶</a></h2>
+<span id="id5"></span><h2>0.2.4<a class="headerlink" href="#release-0-2-4" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Improved <cite>pretty_name</cite> and <cite>dvm_name</cite> of <code class="xref py py-class docutils literal notranslate"><span class="pre">SVMType</span></code></p></li>
 </ul>
 </section>
 <section id="release-0-2-3">
-<span id="id4"></span><h2>0.2.3<a class="headerlink" href="#release-0-2-3" title="Link to this heading">¶</a></h2>
+<span id="id6"></span><h2>0.2.3<a class="headerlink" href="#release-0-2-3" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Fixed issues #1 and <a class="reference external" href="https://github.com/MatrixEditor/pysmali/issues/2">#2</a></p></li>
 <li><p>Added an appropriate error message upon invalid statements.</p></li>
 </ul>
 </section>
 <section id="release-0-2-2">
-<span id="id6"></span><h2>0.2.2<a class="headerlink" href="#release-0-2-2" title="Link to this heading">¶</a></h2>
+<span id="id8"></span><h2>0.2.2<a class="headerlink" href="#release-0-2-2" title="Link to this heading">¶</a></h2>
 <p>A small patch created by <a class="reference external" href="https://github.com/TheZ3ro">TheZ3ro</a> fixing the following issues:</p>
 <ul class="simple">
 <li><p>Fixed <code class="docutils literal notranslate"><span class="pre">sparse_switch</span></code> executor that was not executed due to a typo</p></li>
@@ -481,7 +491,7 @@
 </ul>
 </section>
 <section id="release-0-2-1">
-<span id="id7"></span><h2>0.2.1<a class="headerlink" href="#release-0-2-1" title="Link to this heading">¶</a></h2>
+<span id="id9"></span><h2>0.2.1<a class="headerlink" href="#release-0-2-1" title="Link to this heading">¶</a></h2>
 <p>Kudos to <a class="reference external" href="https://github.com/serenees">serenees</a> for fixing these issues:</p>
 <ul class="simple">
 <li><p>Fixed an issue where <code class="docutils literal notranslate"><span class="pre">Line.split_line</span></code> would return incorrect results if the input string started with the provided separator.</p></li>
@@ -490,14 +500,14 @@
 <li><p>Changed exception descriptor of <em>“.catchall”</em> to <code class="docutils literal notranslate"><span class="pre">Ljava/lang/Exception;</span></code> for all cases</p></li>
 </ul>
 <section id="release-0-2-0">
-<span id="id8"></span><h3>0.2.0<a class="headerlink" href="#release-0-2-0" title="Link to this heading">¶</a></h3>
+<span id="id10"></span><h3>0.2.0<a class="headerlink" href="#release-0-2-0" title="Link to this heading">¶</a></h3>
 <p>This minor update includes a new smali type system and removes the <code class="docutils literal notranslate"><span class="pre">SmaliValueProxy</span></code>. The following changes were made:</p>
 <ul>
 <li><p>Removed the class <code class="docutils literal notranslate"><span class="pre">SmaliValueProxy</span></code> completely, the method <code class="docutils literal notranslate"><span class="pre">smali_value</span></code> now returns one of: int, float, str, SVMType, bool</p></li>
 <li><p>New classes <code class="xref py py-class docutils literal notranslate"><span class="pre">SVMType</span></code> and <code class="xref py py-class docutils literal notranslate"><span class="pre">Signature</span></code> to represent smali types:</p>
 <blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text">Some usage examples</span><a class="headerlink" href="#id13" title="Link to this code">¶</a></div>
+<div><div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">Some usage examples</span><a class="headerlink" href="#id15" title="Link to this code">¶</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">smali</span> <span class="kn">import</span> <span class="n">SVMType</span><span class="p">,</span> <span class="n">Signature</span>
 <span class="linenos"> 2</span>
 <span class="linenos"> 3</span><span class="c1"># simple type instance</span>
@@ -531,7 +541,7 @@
 </ul>
 </section>
 <section id="release-0-1-3">
-<span id="id9"></span><h3>0.1.3<a class="headerlink" href="#release-0-1-3" title="Link to this heading">¶</a></h3>
+<span id="id11"></span><h3>0.1.3<a class="headerlink" href="#release-0-1-3" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Fixed an issue in <code class="xref py py-class docutils literal notranslate"><span class="pre">SmaliReader</span></code> that causes it to run into infinite loops (kudos to <a class="reference external" href="https://github.com/metalcorpe">metalcorpe</a>)</p></li>
 <li><p>Moved to Github-Pages instead of ReadTheDocs</p></li>
@@ -540,7 +550,7 @@
 </ul>
 </section>
 <section id="release-0-1-2">
-<span id="id10"></span><h3>0.1.2<a class="headerlink" href="#release-0-1-2" title="Link to this heading">¶</a></h3>
+<span id="id12"></span><h3>0.1.2<a class="headerlink" href="#release-0-1-2" title="Link to this heading">¶</a></h3>
 <ul>
 <li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">SmaliVM</span></code> is now able to use customized executors.</p>
 <blockquote>
@@ -559,7 +569,7 @@ can change this behaviour by setting the <code class="docutils literal notransla
 </ul>
 </section>
 <section id="release-0-1-1">
-<span id="id11"></span><h3>0.1.1<a class="headerlink" href="#release-0-1-1" title="Link to this heading">¶</a></h3>
+<span id="id13"></span><h3>0.1.1<a class="headerlink" href="#release-0-1-1" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>ISmali (interactive Smali shell) pre-release</p></li>
 <li><p>Implementation of almost half of all Smali-opcodes</p></li>
@@ -568,7 +578,7 @@ can change this behaviour by setting the <code class="docutils literal notransla
 </ul>
 </section>
 <section id="release-1-0-0">
-<span id="id12"></span><h3>0.0.1<a class="headerlink" href="#release-1-0-0" title="Link to this heading">¶</a></h3>
+<span id="id14"></span><h3>0.0.1<a class="headerlink" href="#release-1-0-0" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Start keeping changelog :)</p></li>
 <li><p>Documentation on Smali language</p></li>

@@ -4,6 +4,18 @@
 Changelog
 *********
 
+.. _release-0.2.6:
+
+0.2.6
+-----
+
+Some bug fixes by `WaferJay <https://github.com/WaferJay>`_.
+
+* Fixed a bug in end of line comments not parsed properly in strings with `#` inside
+* Improved `.catchall` directive
+* Other fixes, see `Commit details <https://github.com/MatrixEditor/pysmali/commit/e33b88426bb65eea474d85032c3185a8089a2b92>`_
+
+
 .. _release-0.2.5:
 
 0.2.5
