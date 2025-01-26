@@ -14,6 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 from __future__ import annotations
+from typing import Optional
 
 __doc__ = """
 Implementation of a simple Smali emulator named *SmaliVM*. It supports
@@ -111,7 +112,7 @@ class SmaliVM:
     classloader: ClassLoader
     """The class loader used to define classes."""
 
-    debug_handler: DebugHandler
+    debug_handler: Optional[DebugHandler]
     """The debug handler to use."""
 
     executors: dict[str, executor.Executor]
@@ -152,11 +153,11 @@ class SmaliVM:
 
     def __init__(
         self,
-        class_loader: ClassLoader = None,
-        executors: dict = None,
+        class_loader: Optional[ClassLoader] = None,
+        executors: Optional[dict[str, executor.Executor]] = None,
         use_strict: bool = False,
     ) -> None:
-        self.classloader = _SmaliClassLoader(self) or class_loader
+        self.classloader = class_loader or _SmaliClassLoader(self)
         self.executors = executors or executor.cache
         self.use_strict = use_strict
         self.debug_handler = None

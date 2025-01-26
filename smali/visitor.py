@@ -13,19 +13,22 @@
 
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+from typing import List, Optional, Generic, TypeVar
+
+_VT = TypeVar("_VT", bound="VisitorBase")
 
 
-class VisitorBase:
+class VisitorBase(Generic[_VT]):
     """Base class for Smali-Class visitor classes.
 
     :param delegate: A delegate visitor, defaults to None
     :type delegate: BaseVisitor subclass, optional
     """
 
-    def __init__(self, delegate: "VisitorBase" = None) -> None:
+    def __init__(self, delegate: Optional[_VT] = None) -> None:
         self.delegate = delegate
         # does not apply to muliple inheritance
-        if delegate and not isinstance(delegate, self.__class__.__base__):
+        if delegate and not isinstance(delegate, self.__class__.__base__ or type):
             raise TypeError(
                 f"Invalid Visitor type - expected subclass of {self.__class__}"
             )
@@ -57,16 +60,16 @@ class VisitorBase:
             self.delegate.visit_end()
 
 
-class AnnotationVisitor(VisitorBase):
+class AnnotationVisitor(VisitorBase["AnnotationVisitor"]):
     """Base class for annotation visitors."""
 
-    def visit_value(self, name: str, value) -> None:
+    def visit_value(self, name: str, value: str) -> None:
         """Visits a simple annotation value.
 
         :param name: the value's name
         :type name: str
         :param value: the value
-        :type value: _type_
+        :type value: str
         """
         if self.delegate:
             self.delegate.visit_value(name, value)
@@ -84,7 +87,7 @@ class AnnotationVisitor(VisitorBase):
 
     def visit_subannotation(
         self, name: str, access_flags: int, signature: str
-    ) -> "AnnotationVisitor":
+    ) -> Optional["AnnotationVisitor"]:
         """Prepares to visit an internal annotation.
 
         :param name: the annotation value name
@@ -113,11 +116,8 @@ class AnnotationVisitor(VisitorBase):
             self.delegate.visit_enum(name, owner, const, value_type)
 
 
-class MethodVisitor(VisitorBase):
+class MethodVisitor(VisitorBase["MethodVisitor"]):
     """Base class for method visitors."""
-
-    def __init__(self, delegate: "MethodVisitor" = None) -> None:
-        super().__init__(delegate)
 
     def visit_catch(self, exc_name: str, blocks: tuple) -> None:
         """Called on a ``.catch`` statement.
@@ -166,7 +166,9 @@ class MethodVisitor(VisitorBase):
         if self.delegate:
             return self.delegate.visit_param(register, name)
 
-    def visit_annotation(self, access_flags: int, signature: str) -> AnnotationVisitor:
+    def visit_annotation(
+        self, access_flags: int, signature: str
+    ) -> Optional[AnnotationVisitor]:
         """Prepares to visit an annotation.
 
         :param access_flags: the annotations access flags (zero on most cases)
@@ -240,7 +242,7 @@ class MethodVisitor(VisitorBase):
         if self.delegate:
             self.delegate.visit_invoke(inv_type, args, owner, method)
 
-    def visit_return(self, ret_type: str, args: list) -> None:
+    def visit_return(self, ret_type: str, args: List[str]) -> None:
         """Handles 'return-' statements.
 
         :param ret_type: the return type, e.g. "object" or "void", ...
@@ -251,7 +253,7 @@ class MethodVisitor(VisitorBase):
         if self.delegate:
             self.delegate.visit_return(ret_type, args)
 
-    def visit_instruction(self, ins_name: str, args: list) -> None:
+    def visit_instruction(self, ins_name: str, args: List[str]) -> None:
         """Visits common instructions with one or two parameters.
 
         :param ins_name: the instruction name
@@ -271,7 +273,7 @@ class MethodVisitor(VisitorBase):
         if self.delegate:
             self.delegate.visit_goto(block_name)
 
-    def visit_packed_switch(self, value: str, blocks: list) -> None:
+    def visit_packed_switch(self, value: str, blocks: List[str]) -> None:
         """Handles the packed-switch statement.
 
         :param value: the value which will be "switched"
@@ -282,7 +284,7 @@ class MethodVisitor(VisitorBase):
         if self.delegate:
             self.delegate.visit_packed_switch(value, blocks)
 
-    def visit_array_data(self, length: str, value_list: list) -> None:
+    def visit_array_data(self, length: str, value_list: List[int]) -> None:
         """Called on an '.array-data' statement.
 
         :param length: the array's length
@@ -340,10 +342,12 @@ class MethodVisitor(VisitorBase):
             self.delegate.visit_restart(register)
 
 
-class FieldVisitor(VisitorBase):
+class FieldVisitor(VisitorBase["FieldVisitor"]):
     """Base class for field visitors."""
 
-    def visit_annotation(self, access_flags: int, signature: str) -> AnnotationVisitor:
+    def visit_annotation(
+        self, access_flags: int, signature: str
+    ) -> Optional[AnnotationVisitor]:
         """Prepares to visit an annotation.
 
         :param access_flags: the annotations access flags (zero on most cases)
@@ -355,7 +359,7 @@ class FieldVisitor(VisitorBase):
             return self.delegate.visit_annotation(access_flags, signature)
 
 
-class ClassVisitor(VisitorBase):
+class ClassVisitor(VisitorBase["ClassVisitor"]):
     """Base class for Smali class visitors."""
 
     def visit_class(self, name: str, access_flags: int) -> None:
@@ -388,8 +392,8 @@ class ClassVisitor(VisitorBase):
             self.delegate.visit_implements(interface)
 
     def visit_field(
-        self, name: str, access_flags: int, field_type: str, value=None
-    ) -> FieldVisitor:
+        self, name: str, access_flags: int, field_type: str, value: Optional[str]=None
+    ) -> Optional[FieldVisitor]:
         """Called when a global field definition has been parsed.
 
         :param name: the field's name
@@ -405,8 +409,8 @@ class ClassVisitor(VisitorBase):
             return self.delegate.visit_field(name, access_flags, field_type, value)
 
     def visit_method(
-        self, name: str, access_flags: int, parameters: list, return_type: str
-    ) -> MethodVisitor:
+        self, name: str, access_flags: int, parameters: List[str], return_type: str
+    ) -> Optional[MethodVisitor]:
         """Called when a method definition has been parsed.
 
         :param name: the method's name
@@ -425,7 +429,9 @@ class ClassVisitor(VisitorBase):
                 name, access_flags, parameters, return_type
             )
 
-    def visit_inner_class(self, name: str, access_flags: int) -> "ClassVisitor":
+    def visit_inner_class(
+        self, name: str, access_flags: int
+    ) -> Optional["ClassVisitor"]:
         """Called when the class definition has been parsed.
 
         :param name: the class name (type descriptor, e.g. "Lcom/example/A;")
@@ -436,7 +442,9 @@ class ClassVisitor(VisitorBase):
         if self.delegate:
             return self.delegate.visit_inner_class(name, access_flags)
 
-    def visit_annotation(self, access_flags: int, signature: str) -> AnnotationVisitor:
+    def visit_annotation(
+        self, access_flags: int, signature: str
+    ) -> Optional[AnnotationVisitor]:
         """Prepares to visit an annotation.
 
         :param access_flags: the annotations access flags (zero on most cases)

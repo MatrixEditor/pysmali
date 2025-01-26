@@ -18,6 +18,8 @@ Contains standard implementations for Smali writers that are able
 to procude classes, method, fields and annotations.
 """
 
+import abc
+from typing import List, Optional
 from smali.visitor import ClassVisitor, MethodVisitor, FieldVisitor, AnnotationVisitor
 from smali.base import AccessType, Token
 from smali.reader import SupportsCopy, SmaliReader
@@ -29,6 +31,7 @@ __all__ = ["SmaliWriter", "FieldWriter", "MethodWriter", "AnnotationWriter"]
 class _ContainsCodeCache(SupportsCopy):
     """Interface to make sure the code cache is returned via a method."""
 
+    @abc.abstractmethod
     def get_cache(self) -> "_CodeCache":
         """Returns the current code cache.
 
@@ -163,7 +166,7 @@ class _CodeCache:
         self.__comment_cache.clear()
         self.__code.clear()
 
-    def peek(self) -> _ContainsCodeCache:
+    def peek(self) -> _ContainsCodeCache | None:
         """Returns the last element of this cache
 
         :return: the last element that contains itself a ``_CodeCache``
@@ -180,7 +183,7 @@ class _SmaliAnnotationWriter(AnnotationVisitor, _ContainsCodeCache):
     cache: _CodeCache
 
     def __init__(
-        self, delegate: "AnnotationVisitor" = None, indent=0, name=Token.ANNOTATION
+        self, delegate: Optional[AnnotationVisitor] = None, indent=0, name=Token.ANNOTATION
     ) -> None:
         super().__init__(delegate)
         self.cache = _CodeCache(indent)
@@ -255,7 +258,7 @@ class _SmaliAnnotationWriter(AnnotationVisitor, _ContainsCodeCache):
 class _SmaliFieldWriter(FieldVisitor, _ContainsCodeCache):
     cache: _CodeCache
 
-    def __init__(self, delegate: "FieldVisitor" = None, indent=0) -> None:
+    def __init__(self, delegate: Optional[FieldVisitor] = None, indent=0) -> None:
         super().__init__(delegate)
         self.cache = _CodeCache(indent)
 
@@ -291,7 +294,7 @@ class _SmaliFieldWriter(FieldVisitor, _ContainsCodeCache):
 class _SmaliMethodWriter(MethodVisitor, _ContainsCodeCache):
     cache: _CodeCache
 
-    def __init__(self, delegate: "MethodVisitor" = None, indent=0) -> None:
+    def __init__(self, delegate: Optional[MethodVisitor] = None, indent=0) -> None:
         super().__init__(delegate)
         self.cache = _CodeCache(indent)
 
@@ -417,7 +420,7 @@ class _SmaliMethodWriter(MethodVisitor, _ContainsCodeCache):
             end="\n",
         )
 
-    def visit_array_data(self, length: str, value_list: list) -> None:
+    def visit_array_data(self, length: str, value_list: List[int]) -> None:
         self.cache.apply_code_cache(True)
         super().visit_array_data(length, value_list)
         indent_value = self.cache.default_indent * (self.cache.indent + 2)
@@ -468,11 +471,12 @@ class _SmaliClassWriter(ClassVisitor, _ContainsCodeCache):
     cache: _CodeCache
     """The code cache to use."""
 
-    def __init__(self, reader: SmaliReader = None, indent=0) -> None:
+    def __init__(self, reader: Optional[SmaliReader] = None, indent=0, delegate: Optional[ClassVisitor] = None) -> None:
         super().__init__()
         self.cache = _CodeCache(indent)
         if reader:
             reader.copy_handler = self
+        self._reader = reader
 
     def __str__(self) -> str:
         return self.code
@@ -547,7 +551,7 @@ class _SmaliClassWriter(ClassVisitor, _ContainsCodeCache):
         flags = " ".join(AccessType.get_names(access_flags))
         desc = f".{Token.CLASS} {flags} {name}"
 
-        c_visitor = _SmaliClassWriter(delegate)
+        c_visitor = _SmaliClassWriter(self._reader, delegate=delegate)
         c_visitor.cache.add(desc)
         self.cache.add_to_cache(c_visitor)
         return c_visitor
