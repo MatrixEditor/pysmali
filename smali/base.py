@@ -14,6 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 from __future__ import annotations
+from typing import Any
 
 __doc__ = """
 Basic component classes when working with the Smali language.
@@ -207,7 +208,7 @@ class Line:
     eol_comment: str
     """The removed trailing EOL comment (if present)"""
 
-    def __init__(self, line: str) -> None:
+    def __init__(self, line: str | None) -> None:
         if isinstance(line, (bytearray, bytes)):
             line = line.decode()
 
@@ -216,13 +217,13 @@ class Line:
         self._elements = []
         self.reset(line)
 
-    def _get_next(self) -> str:
+    def _get_next(self) -> str | Any:
         try:
             return next(self._it)
         except StopIteration:
             return self._default
 
-    def __next__(self) -> str:
+    def __next__(self) -> str | Any:
         value = self._head
         if value == self._default:
             raise StopIteration()
@@ -230,7 +231,7 @@ class Line:
         self._head = self._get_next()
         return value
 
-    def reset(self, line: str = None) -> None:
+    def reset(self, line: str | None = None) -> None:
         """Resets this line and/or initialized it with the new value.
 
         :param line: the next line, defaults to None
@@ -258,7 +259,7 @@ class Line:
         self._it = iter(self._elements)
         self._head = self._get_next()
 
-    def peek(self, default: str = _default) -> str:
+    def peek(self, default: str | Any = _default) -> str | Any:
         """Returns the current element if this line.
 
         This method won't move forwards.
@@ -605,7 +606,7 @@ class SVMType:
         return self.__class
 
     @property
-    def array_type(self) -> SVMType:
+    def array_type(self) -> SVMType | None:
         """Returns the underlying array type (if any)
 
         >>> array = SVMType("[[B")

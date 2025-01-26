@@ -18,6 +18,8 @@ Contains standard implementations for Smali writers that are able
 to procude classes, method, fields and annotations.
 """
 
+import abc
+from typing import List, Optional
 from smali.visitor import ClassVisitor, MethodVisitor, FieldVisitor, AnnotationVisitor
 from smali.base import AccessType, Token
 from smali.reader import SupportsCopy, SmaliReader
@@ -29,6 +31,7 @@ __all__ = ["SmaliWriter", "FieldWriter", "MethodWriter", "AnnotationWriter"]
 class _ContainsCodeCache(SupportsCopy):
     """Interface to make sure the code cache is returned via a method."""
 
+    @abc.abstractmethod
     def get_cache(self) -> "_CodeCache":
         """Returns the current code cache.
 
@@ -75,6 +78,10 @@ class _CodeCache:
         :rtype: int
         """
         return self.__indent
+
+    @indent.setter
+    def indent(self, value: int) -> None:
+        self.__indent = value
 
     def add(
         self, line: str, start: str = "", end: str = "", custom_indent: int = -1
@@ -163,7 +170,7 @@ class _CodeCache:
         self.__comment_cache.clear()
         self.__code.clear()
 
-    def peek(self) -> _ContainsCodeCache:
+    def peek(self) -> _ContainsCodeCache | None:
         """Returns the last element of this cache
 
         :return: the last element that contains itself a ``_CodeCache``
@@ -180,7 +187,10 @@ class _SmaliAnnotationWriter(AnnotationVisitor, _ContainsCodeCache):
     cache: _CodeCache
 
     def __init__(
-        self, delegate: "AnnotationVisitor" = None, indent=0, name=Token.ANNOTATION
+        self,
+        delegate: Optional[AnnotationVisitor] = None,
+        indent=0,
+        name=Token.ANNOTATION,
     ) -> None:
         super().__init__(delegate)
         self.cache = _CodeCache(indent)
@@ -207,9 +217,13 @@ class _SmaliAnnotationWriter(AnnotationVisitor, _ContainsCodeCache):
     ) -> "AnnotationVisitor":
         delegate = super().visit_subannotation(name, access_flags, signature)
         desc = f"{name} = .{Token.SUBANNOTATION} {signature}"
-        a_visitor = _SmaliAnnotationWriter(
-            delegate, self.cache.indent + 1, Token.SUBANNOTATION
-        )
+        if isinstance(delegate, _SmaliAnnotationWriter):
+            a_visitor = delegate
+            a_visitor.cache.indent = self.cache.indent + 1
+        else:
+            a_visitor = _SmaliAnnotationWriter(
+                delegate, self.cache.indent + 1, Token.SUBANNOTATION
+            )
 
         a_visitor.cache.add(desc)
         self.cache.add_to_cache(a_visitor)
@@ -255,14 +269,18 @@ class _SmaliAnnotationWriter(AnnotationVisitor, _ContainsCodeCache):
 class _SmaliFieldWriter(FieldVisitor, _ContainsCodeCache):
     cache: _CodeCache
 
-    def __init__(self, delegate: "FieldVisitor" = None, indent=0) -> None:
+    def __init__(self, delegate: Optional[FieldVisitor] = None, indent=0) -> None:
         super().__init__(delegate)
         self.cache = _CodeCache(indent)
 
     def visit_annotation(self, access_flags: int, signature: str) -> AnnotationVisitor:
         delegate = super().visit_annotation(access_flags, signature)
         desc = f".{Token.ANNOTATION} {' '.join(AccessType.get_names(access_flags))} {signature}"
-        a_visitor = _SmaliAnnotationWriter(delegate, self.cache.indent + 1)
+        if isinstance(delegate, _SmaliAnnotationWriter):
+            a_visitor = delegate
+            a_visitor.cache.indent = self.cache.indent + 1
+        else:
+            a_visitor = _SmaliAnnotationWriter(delegate, self.cache.indent + 1)
 
         a_visitor.cache.add(desc)
         self.cache.add_to_cache(a_visitor)
@@ -291,14 +309,18 @@ class _SmaliFieldWriter(FieldVisitor, _ContainsCodeCache):
 class _SmaliMethodWriter(MethodVisitor, _ContainsCodeCache):
     cache: _CodeCache
 
-    def __init__(self, delegate: "MethodVisitor" = None, indent=0) -> None:
+    def __init__(self, delegate: Optional[MethodVisitor] = None, indent=0) -> None:
         super().__init__(delegate)
         self.cache = _CodeCache(indent)
 
     def visit_annotation(self, access_flags: int, signature: str) -> AnnotationVisitor:
         delegate = super().visit_annotation(access_flags, signature)
         desc = f".{Token.ANNOTATION} {' '.join(AccessType.get_names(access_flags))} {signature}"
-        a_visitor = _SmaliAnnotationWriter(delegate, self.cache.indent + 1)
+        if isinstance(delegate, _SmaliAnnotationWriter):
+            a_visitor = delegate
+            a_visitor.cache.indent = self.cache.indent + 1
+        else:
+            a_visitor = _SmaliAnnotationWriter(delegate, self.cache.indent + 1)
 
         a_visitor.cache.add(desc)
         self.cache.add_to_cache(a_visitor)
@@ -417,7 +439,7 @@ class _SmaliMethodWriter(MethodVisitor, _ContainsCodeCache):
             end="\n",
         )
 
-    def visit_array_data(self, length: str, value_list: list) -> None:
+    def visit_array_data(self, length: str, value_list: List[int]) -> None:
         self.cache.apply_code_cache(True)
         super().visit_array_data(length, value_list)
         indent_value = self.cache.default_indent * (self.cache.indent + 2)
@@ -444,7 +466,9 @@ class _SmaliMethodWriter(MethodVisitor, _ContainsCodeCache):
         indent_value = self.cache.default_indent * (self.cache.indent + 2)
         values = [f"{x} -> :{y}" for x, y in branches.items()]
         sep_value = "\n" + indent_value
-        self.cache.add(f".{Token.SPARSESWITCH}\n{indent_value}{sep_value.join(values)}\n.{Token.END} {Token.SPARSESWITCH}")
+        self.cache.add(
+            f".{Token.SPARSESWITCH}\n{indent_value}{sep_value.join(values)}\n.{Token.END} {Token.SPARSESWITCH}"
+        )
 
     def visit_eol_comment(self, text: str) -> None:
         super().visit_eol_comment(text)
@@ -468,11 +492,17 @@ class _SmaliClassWriter(ClassVisitor, _ContainsCodeCache):
     cache: _CodeCache
     """The code cache to use."""
 
-    def __init__(self, reader: SmaliReader = None, indent=0) -> None:
-        super().__init__()
+    def __init__(
+        self,
+        reader: Optional[SmaliReader] = None,
+        indent=0,
+        delegate: Optional[ClassVisitor] = None,
+    ) -> None:
+        super().__init__(delegate)
         self.cache = _CodeCache(indent)
         if reader:
             reader.copy_handler = self
+        self._reader = reader
 
     def __str__(self) -> str:
         return self.code
@@ -519,48 +549,64 @@ class _SmaliClassWriter(ClassVisitor, _ContainsCodeCache):
 
     def visit_field(
         self, name: str, access_flags: int, field_type: str, value=None
-    ) -> FieldVisitor:
-        delegate = super().visit_field(name, access_flags, field_type, value)
+    ) -> Optional[FieldVisitor]:
         flags = " ".join(AccessType.get_names(access_flags))
         desc = f".{Token.FIELD} {flags} {name}:{field_type}"
         if value:
             # String values come with their '"' characters
             desc = f"{desc} = {value}"
 
-        f_visitor = _SmaliFieldWriter(delegate, self.cache.indent)
+        delegate = super().visit_field(name, access_flags, field_type, value)
+        if isinstance(delegate, _SmaliFieldWriter):
+            f_visitor = delegate
+        else:
+            f_visitor = _SmaliFieldWriter(delegate, self.cache.indent)
         f_visitor.cache.add(desc)
         self.cache.add_to_cache(f_visitor)
         return f_visitor
 
-    def visit_annotation(self, access_flags: int, signature: str) -> AnnotationVisitor:
+    def visit_annotation(
+        self, access_flags: int, signature: str
+    ) -> Optional[AnnotationVisitor]:
         delegate = super().visit_annotation(access_flags, signature)
         flags = " ".join(AccessType.get_names(access_flags))
         desc = f".{Token.ANNOTATION} {flags} {signature}"
-        a_visitor = _SmaliAnnotationWriter(delegate, self.cache.indent)
+        if isinstance(delegate, _SmaliAnnotationWriter):
+            a_visitor = delegate
+            a_visitor.cache.indent = self.cache.indent
+        else:
+            a_visitor = _SmaliAnnotationWriter(delegate, self.cache.indent)
 
         a_visitor.cache.add(desc)
         self.cache.add_to_cache(a_visitor)
         return a_visitor
 
-    def visit_inner_class(self, name: str, access_flags: int) -> ClassVisitor:
+    def visit_inner_class(self, name: str, access_flags: int) -> Optional[ClassVisitor]:
         delegate = super().visit_inner_class(name, access_flags)
         flags = " ".join(AccessType.get_names(access_flags))
         desc = f".{Token.CLASS} {flags} {name}"
 
-        c_visitor = _SmaliClassWriter(delegate)
+        if isinstance(delegate, _SmaliClassWriter):
+            c_visitor = delegate
+        else:
+            c_visitor = _SmaliClassWriter(self._reader, delegate=delegate)
         c_visitor.cache.add(desc)
         self.cache.add_to_cache(c_visitor)
         return c_visitor
 
     def visit_method(
         self, name: str, access_flags: int, parameters: list, return_type: str
-    ) -> MethodVisitor:
+    ) -> Optional[MethodVisitor]:
         delegate = super().visit_method(name, access_flags, parameters, return_type)
         flags = " ".join(AccessType.get_names(access_flags))
         params = "".join(parameters)
         desc = f".{Token.METHOD} {flags} {name}({params}){return_type}"
+        if isinstance(delegate, _SmaliMethodWriter):
+            m_visitor = delegate
+            m_visitor.cache.indent = self.cache.indent
+        else:
+            m_visitor = _SmaliMethodWriter(delegate, self.cache.indent)
 
-        m_visitor = _SmaliMethodWriter(delegate, self.cache.indent)
         m_visitor.cache.add(desc)
         self.cache.add_to_cache(m_visitor)
         return m_visitor

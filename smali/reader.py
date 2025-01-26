@@ -20,6 +20,7 @@ routine.
 """
 
 import io
+from typing import Optional
 
 from smali.visitor import (
     VisitorBase,
@@ -93,7 +94,7 @@ class SmaliReader:
     errors: str = "strict"
     """Indicates whether this reader should throw errors (values: 'strict', 'ignore')"""
 
-    copy_handler: SupportsCopy
+    copy_handler: Optional[SupportsCopy]
 
     def __init__(
         self,
@@ -152,7 +153,7 @@ class SmaliReader:
         self._do_visit()
 
     @property
-    def _visitor(self) -> VisitorBase:
+    def _visitor(self) -> VisitorBase[ClassVisitor | FieldVisitor | MethodVisitor | AnnotationVisitor]:
         """Returns the active visitor instance.
 
         :return: the active visitor.
@@ -181,8 +182,11 @@ class SmaliReader:
             if len(raw_line) == 0:
                 raise EOFError()
 
-            if isinstance(raw_line, bytes):
+            # REVISIT: what about encodings?
+            if isinstance(raw_line, (bytes, bytearray)):
                 raw_line = raw_line.decode()
+            elif isinstance(raw_line, memoryview):
+                raw_line = raw_line.tobytes().decode()
 
             # Sort out blank lines without anything
             if not raw_line:

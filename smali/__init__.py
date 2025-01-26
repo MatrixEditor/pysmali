@@ -25,4 +25,4 @@ from smali.writer import *
 
 SmaliValue = smali_value
 
-VERSION = '0.2.6'
+VERSION = '0.2.7'

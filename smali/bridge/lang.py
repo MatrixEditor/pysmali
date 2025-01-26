@@ -14,6 +14,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 from __future__ import annotations
+from collections import defaultdict
+from typing import List, Optional
 
 __doc__ = """
 The module ``lang`` of the provided Smali bridge defines classes that
@@ -48,6 +50,8 @@ __all__ = [
     "SmaliObject",
 ]
 
+_SmaliValueType = int | float | str | SVMType | bool
+
 
 class SmaliMember:
     """Base class for Python classes of the Smali language.
@@ -66,7 +70,7 @@ class SmaliMember:
     __modifiers: int
     """The member's visibility modifiers."""
 
-    __annotations: dict
+    __annotations: dict[str, List[SmaliAnnotation]]
     """All annotations of this member. The will be stored in
     a type-2-object mapping.
 
@@ -81,12 +85,16 @@ class SmaliMember:
         signature: str,
         modifiers: int,
         base_class: type,
-        annotations: list = None,
+        annotations: Optional[List[SmaliAnnotation]] = None,
     ) -> None:
         self.__type = SVMType(str(type_))
         self.__signature = signature
         self.__modifiers = modifiers
-        self.__annotations = annotations or []
+        self.__annotations = defaultdict(list)
+        if annotations:
+            for annotation in annotations:
+                self.__annotations[str(annotation.signature)].append(annotation)
+
         if self.__class__ != base_class:
             raise TypeError(f"{base_class.__name__} cannot be sub-classed!")
 
@@ -158,7 +166,10 @@ class SmaliMember:
         :return: all declared annotations
         :rtype: list
         """
-        return self.__annotations
+        annotations = []
+        for a in self.__annotations.values():
+            annotations.extend(a)
+        return annotations
 
     @property
     def type(self) -> SVMType:
@@ -218,7 +229,7 @@ class SmaliAnnotation(SmaliMember):
         parent: SmaliMember,
         signature: str,
         modifiers: int,
-        annotations: list = None,
+        annotations: Optional[List[SmaliAnnotation]] = None,
         attr=None,
     ) -> None:
         super().__init__(
@@ -252,7 +263,7 @@ class SmaliField(SmaliMember):
     __name: str
     """The field's name"""
 
-    __value: int | float | str | SVMType | bool
+    __value: Optional[_SmaliValueType]
     """Stores the actual value of this field"""
 
     def __init__(
@@ -262,15 +273,15 @@ class SmaliField(SmaliMember):
         signature: str,
         modifiers: int,
         name: str,
-        annotations: list = None,
-        value=None,
+        annotations: Optional[List[SmaliAnnotation]] = None,
+        value: Optional[_SmaliValueType] = None,
     ) -> None:
         super().__init__(_type, parent, signature, modifiers, SmaliField, annotations)
         self.__value = value
         self.__name = name
 
     @property
-    def value(self) -> int | float | str | SVMType | bool:
+    def value(self) -> Optional[_SmaliValueType]:
         """Returns the value of this field.
 
         :return: the value as a :class:`SmaliValue`
@@ -339,7 +350,7 @@ class SmaliMethod(SmaliMember):
         parent: "SmaliMember",
         signature: str,
         modifiers: int,
-        annotations: list = None,
+        annotations: Optional[List[SmaliAnnotation]] = None,
     ) -> None:
         super().__init__(
             f"{parent.type}->{signature}",
@@ -621,7 +632,7 @@ class SmaliClass(SmaliMember):
     __classes: dict[str, SmaliClass]
     """All inner classes of this class"""
 
-    __super: SVMType
+    __super: Optional[SVMType]
     """The class descriptor of the super class"""
 
     __implements: list[SVMType]
@@ -632,7 +643,7 @@ class SmaliClass(SmaliMember):
         parent: "SmaliMember",
         signature: str,
         modifiers: int,
-        annotations: list = None,
+        annotations: Optional[List[SmaliAnnotation]] = None,
     ) -> None:
         super().__init__(
             signature, parent, signature, modifiers, SmaliClass, annotations
@@ -678,7 +689,7 @@ class SmaliClass(SmaliMember):
         return self.__classes
 
     @property
-    def super_cls(self) -> SVMType:
+    def super_cls(self) -> Optional[SVMType]:
         """Returns the super class of this class
 
         :return: the super class name
@@ -704,7 +715,7 @@ class SmaliClass(SmaliMember):
         """
         return self.__implements
 
-    def get_declared_methods(self, access_type: AccessType = None) -> list[SmaliMethod]:
+    def get_declared_methods(self, access_type: Optional[AccessType] = None) -> list[SmaliMethod]:
         """Returns all declared methods in this class,
 
         :param access_type: an extra filter, defaults to None
@@ -720,7 +731,7 @@ class SmaliClass(SmaliMember):
 
         return result
 
-    def method(self, signature: str) -> SmaliMethod:
+    def method(self, signature: str) -> SmaliMethod | _MethodBroker:
         """Searches for the given method signature or name.
 
         :param signature: the name or signature of the method
@@ -739,7 +750,7 @@ class SmaliClass(SmaliMember):
                 if method.signature == signature:
                     return method
 
-        raise NoSuchMethodError(f'Method with signature {signature!r} not found')
+        raise NoSuchMethodError(f"Method with signature {signature!r} not found")
 
     def field(self, name: str) -> SmaliField:
         """Returns the field with the given name.
@@ -794,7 +805,7 @@ class SmaliClass(SmaliMember):
     def __contains__(self, field_name: str) -> bool:
         return field_name in self.__fields
 
-    def fields(self, access_type: AccessType = None):
+    def fields(self, access_type: Optional[AccessType] = None):
         """Returns all fields that match the given access type.
 
         If no access type is given, all fields will be returned.
@@ -808,7 +819,7 @@ class SmaliClass(SmaliMember):
                 return True
             return field.modifiers in access_type
 
-        return filter(field_filter, self.__fields)
+        return filter(field_filter, self.__fields.values())
 
     def clinit(self) -> None:
         """Calls the static-block initializer method (``<clinit>``)
@@ -870,8 +881,7 @@ class SmaliObject:
             )
 
         self.__field_values = {}
-        for name in clazz.fields():
-            field = clazz.field(name)
+        for field in clazz.fields():
             if field.modifiers not in AccessType.STATIC:
                 self.__field_values[field.name] = None
 
