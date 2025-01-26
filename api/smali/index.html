@@ -6,12 +6,12 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>1. Smali API &mdash; pysmali 0.2.6 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+  <title>1. Smali API &mdash; pysmali 0.2.7 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
   
-      <script src="../../_static/documentation_options.js?v=fc7d8818"></script>
+      <script src="../../_static/documentation_options.js?v=58050c01"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -68,6 +68,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#release-0-2-7">0.2.7</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#release-0-2-6">0.2.6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#release-0-2-5">0.2.5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#release-0-2-4">0.2.4</a></li>
@@ -553,7 +554,7 @@ number of dimensions. For instance, a two dimensional array would get two opened
 brackets in its type descriptor.</p>
 <p>This API contains a class called <code class="xref py py-class docutils literal notranslate"><span class="pre">SVMType</span></code> that can be used to retrieve type descriptors
 as well as class names:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">smali</span> <span class="kn">import</span> <span class="n">SVMType</span><span class="p">,</span> <span class="n">Signature</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span><span class="w"> </span><span class="nn">smali</span><span class="w"> </span><span class="kn">import</span> <span class="n">SVMType</span><span class="p">,</span> <span class="n">Signature</span>
 <span class="linenos"> 2</span>
 <span class="linenos"> 3</span><span class="c1"># simple type instance</span>
 <span class="linenos"> 4</span><span class="n">t</span> <span class="o">=</span> <span class="n">SVMType</span><span class="p">(</span><span class="s2">&quot;Lcom/example/Class;&quot;</span><span class="p">)</span>
@@ -589,7 +590,7 @@ class name or internal name (array types are supported as well).</p>
 method’s name. The general structure, described in detail in the ASM API <a class="footnote-reference brackets" href="#id6" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> documentation,
 is the same. To get contents of a method descriptor the <code class="xref py py-class docutils literal notranslate"><span class="pre">SVMType</span></code> class, introduced before,
 can be used again:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">smali</span> <span class="kn">import</span> <span class="n">SVMType</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span><span class="w"> </span><span class="nn">smali</span><span class="w"> </span><span class="kn">import</span> <span class="n">SVMType</span>
 <span class="linenos"> 2</span>
 <span class="linenos"> 3</span><span class="n">method</span> <span class="o">=</span> <span class="n">SVMType</span><span class="p">(</span><span class="s2">&quot;getName([BLjava/lang/String;)Ljava/lang/String;&quot;</span><span class="p">)</span>
 <span class="linenos"> 4</span><span class="c1"># get the method&#39;s signature</span>
@@ -636,11 +637,11 @@ even inner classes)</p>
 <p>The same rules are applied to all other visitor classes. The base class of
 all visitors must be <code class="xref py py-class docutils literal notranslate"><span class="pre">VisitorBase</span></code> as it contains common methods all sub
 classes need:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">VisitorBase</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delegate</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
-    <span class="k">def</span> <span class="nf">visit_comment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
-    <span class="k">def</span> <span class="nf">visit_eol_comment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
-    <span class="k">def</span> <span class="nf">visit_end</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">VisitorBase</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delegate</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">visit_comment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">visit_eol_comment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">visit_end</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
 </pre></div>
 </div>
 <p>All visitor classes come with a delegate that can be used together with the
@@ -666,19 +667,19 @@ files with these components.</p>
 <p>The only required component to parse an existing Smali source file is the <code class="xref py py-class docutils literal notranslate"><span class="pre">SmaliReader</span></code>
 component. To illustrate an example usage, assume we want to print out the parsed
 class name, super class and implementing interfaces:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">smali</span> <span class="kn">import</span> <span class="n">ClassVisitor</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span><span class="w"> </span><span class="nn">smali</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClassVisitor</span>
 <span class="linenos"> 2</span>
-<span class="linenos"> 3</span><span class="k">class</span> <span class="nc">SmaliClassPrinter</span><span class="p">(</span><span class="n">ClassVisitor</span><span class="p">):</span>
-<span class="linenos"> 4</span>    <span class="k">def</span> <span class="nf">visit_class</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">access_flags</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 3</span><span class="k">class</span><span class="w"> </span><span class="nc">SmaliClassPrinter</span><span class="p">(</span><span class="n">ClassVisitor</span><span class="p">):</span>
+<span class="linenos"> 4</span>    <span class="k">def</span><span class="w"> </span><span class="nf">visit_class</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">access_flags</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 5</span>        <span class="c1"># The provided name is the type descriptor - if we want the</span>
 <span class="linenos"> 6</span>        <span class="c1"># Java class name, use a SVMType() call:</span>
 <span class="linenos"> 7</span>        <span class="c1"># cls_name = SVMType(name).simple_name</span>
 <span class="linenos"> 8</span>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;.class </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="linenos"> 9</span>
-<span class="linenos">10</span>    <span class="k">def</span> <span class="nf">visit_super</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">super_class</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">10</span>    <span class="k">def</span><span class="w"> </span><span class="nf">visit_super</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">super_class</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">11</span>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;.super </span><span class="si">{</span><span class="n">super_class</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="linenos">12</span>
-<span class="linenos">13</span>    <span class="k">def</span> <span class="nf">visit_implements</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interface</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">13</span>    <span class="k">def</span><span class="w"> </span><span class="nf">visit_implements</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interface</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">14</span>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;.implements </span><span class="si">{</span><span class="n">interface</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -712,7 +713,7 @@ component. For instance, consider the following class:</p>
 </pre></div>
 </div>
 <p>It can be generated within seven method calls to a <code class="xref py py-class docutils literal notranslate"><span class="pre">SmaliWriter</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">smali</span> <span class="kn">import</span> <span class="n">SmaliWriter</span><span class="p">,</span> <span class="n">AccessType</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span><span class="w"> </span><span class="nn">smali</span><span class="w"> </span><span class="kn">import</span> <span class="n">SmaliWriter</span><span class="p">,</span> <span class="n">AccessType</span>
 <span class="linenos"> 2</span>
 <span class="hll"><span class="linenos"> 3</span><span class="n">writer</span> <span class="o">=</span> <span class="n">SmaliWriter</span><span class="p">()</span>
 </span><span class="linenos"> 4</span><span class="c1"># Create the .class statement</span>

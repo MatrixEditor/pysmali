@@ -4,6 +4,17 @@
 Changelog
 *********
 
+.. _release-0.2.7:
+
+0.2.7
+-----
+
+Some small bug fixes and behavior changes in :class:`_SmaliClassWriter`
+
+* Fixed a bug where the default classloader would be used everytime in a :class:`SmaliVM` instance
+* Fixed a bug in :code:`SmaliClass.fields()` where a call to :code:`.items()` was missing
+* :class:`_SmaliClassWriter`, :class:`_SmaliMethodWriter`, :class:`_SmaliFieldWriter` and :class:`_SmaliAnnotationWriter` now return the result of the delegate visitor instead of a new one if the delegate is an instance of the target writer class.
+
 .. _release-0.2.6:
 
 0.2.6
