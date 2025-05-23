@@ -4,6 +4,16 @@
 Changelog
 *********
 
+.. _release-0.2.8:
+
+0.2.8
+-----
+
+Some small bug fixes in :class:`SmaliReader`:
+
+* Fixed parsing of :code:`.local` lines
+* EOL comments are now captured correctly using a new regex
+
 .. _release-0.2.7:
 
 0.2.7
